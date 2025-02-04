@@ -1,7 +1,8 @@
 build/
-.vscode/       # Visual Studio Code files
-*.json         # .json files
 *.swp          # Temporary files
 *~             # Temporary files (backup)
 *.log          # Log files
 config.ini     # Local configuration files
+.vscode/       # Visual Studio Code files
+.vscode/*.json
+*.json         # .json files
