@@ -1,5 +1,6 @@
 build/
 .vscode/       # Visual Studio Code files
+*.json         # .json files
 *.swp          # Temporary files
 *~             # Temporary files (backup)
 *.log          # Log files

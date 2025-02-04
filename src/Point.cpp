@@ -1,20 +1,20 @@
-#include "../include/Dot.hh"
+#include "../include/Point.hh"
 
 namespace Geometry {
     // Constructors
-    Dot::Dot(double x, double y, double z) {
+    Point::Point(double x, double y, double z) {
         this->x = x;
         this->y = y;
         this->z = z;
     }
-    Dot::Dot(const Dot& other) {
+    Point::Point(const Point& other) {
         this->x = other.x;
         this->y = other.y;
         this->z = other.z;
     }
 
     // Operator =
-    Dot& Dot::operator=(const Dot& other) {
+    Point& Point::operator=(const Point& other) {
         this->x = other.x;
         this->y = other.y;
         this->z = other.z;
@@ -22,46 +22,52 @@ namespace Geometry {
     }
 
     // Getter methods
-    double Dot::getX() const {
+    double Point::getX() const {
         return this->x;
     }
-    double Dot::getY() const {
+    double Point::getY() const {
         return this->y;
     }
-    double Dot::getZ() const {
+    double Point::getZ() const {
         return this->z;
     }
     // Setter methods
-    void Dot::setX(int x) {
+    void Point::setX(int x) {
         this->x = x;
     }
-    void Dot::setY(int y) {
+    void Point::setY(int y) {
         this->y = y;
     }
-    void Dot::setZ(int z) {
+    void Point::setZ(int z) {
         this->z = z;
     }
 
-    // Operation between Dots
-    Dot Dot::operator+(const Dot& other) const {
+    // Operation between Points
+    Point Point::operator+(const Point& other) const {
         double newX = this->x + other.x;
         double newY = this->y + other.y;
         double newZ = this->z + other.z;
-        return Dot(newX, newY, newZ);
+        return Point(newX, newY, newZ);
     }
-    void Dot::operator+=(const Dot& other) {
+    Point Point::operator-(const Point& other) const {
+        double newX = this->x - other.x;
+        double newY = this->y - other.y;
+        double newZ = this->z - other.z;
+        return Point(newX, newY, newZ);
+    }
+    void Point::operator+=(const Point& other) {
         this->x += other.x;
         this->y += other.y;
         this->z += other.z;
     }
     // Scalar product
-    double Dot::operator*(const Dot& other) const {
+    double Point::operator*(const Point& other) const {
         return this->x * other.x + this->y * other.y + this->z * other.z;
     }
     // Scalar Triple Product - geometrically, corresponds to the volume of a parallelepiped
     // formed by three indipendet vectors a, b, c
-    double Dot::STP(const Dot& a, const Dot& b, const Dot& c) {
-        return a * Dot(b.getY() * c.getZ() - b.getZ() * c.getY(),
+    double Point::STP(const Point& a, const Point& b, const Point& c) {
+        return a * Point(b.getY() * c.getZ() - b.getZ() * c.getY(),
                        b.getZ() * c.getX() - b.getX() * c.getZ(),
                        b.getX() * c.getY() - b.getY() * c.getX());
     }

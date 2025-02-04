@@ -1,21 +1,21 @@
 // Guard against multiple insertions
-#ifndef DOT_H
-#define DOT_H
+#ifndef POINT_HH
+#define POINT_HH
 
 namespace Geometry {
-    class Dot {
+    class Point {
     private:
         double x;
         double y;
         double z;
     public:
         // Constructors
-        Dot(double x = 0.0, double y = 0.0, double z = 0.0);
-        Dot(const Dot& other);
-        ~Dot() = default;
+        Point(double x = 0.0, double y = 0.0, double z = 0.0);
+        Point(const Point& other);
+        ~Point() = default;
 
         // Operator =
-        Dot& operator=(const Dot& other);
+        Point& operator=(const Point& other);
 
         // Getter methods
         double getX() const;
@@ -28,12 +28,13 @@ namespace Geometry {
 
         // Operation between Dots
         // Sum
-        Dot operator+(const Dot& other) const;
-        void operator+=(const Dot& other);
+        Point operator+(const Point& other) const;
+        Point operator-(const Point& other) const;
+        void operator+=(const Point& other);
         // Scalar product
-        double operator*(const Dot& other) const;
+        double operator*(const Point& other) const;
         // Scalar Triple Product
-        double STP(const Dot& a, const Dot& b, const Dot& c);
+        double STP(const Point& a, const Point& b, const Point& c);
     };
 }
 
