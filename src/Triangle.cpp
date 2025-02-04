@@ -1,7 +1,6 @@
-#include "Point.hh"
-#include "Triangle.hh"
+#include "../include/Point.hh"
+#include "../include/Triangle.hh"
 #include <cmath>
-#include <stdexcept>
 
 namespace Geometry {
     class Triangle : public Shape2D {
