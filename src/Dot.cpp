@@ -58,4 +58,11 @@ namespace Geometry {
     double Dot::operator*(const Dot& other) const {
         return this->x * other.x + this->y * other.y + this->z * other.z;
     }
+    // Scalar Triple Product - geometrically, corresponds to the volume of a parallelepiped
+    // formed by three indipendet vectors a, b, c
+    double Dot::STP(const Dot& a, const Dot& b, const Dot& c) {
+        return a * Dot(b.getY() * c.getZ() - b.getZ() * c.getY(),
+                       b.getZ() * c.getX() - b.getX() * c.getZ(),
+                       b.getX() * c.getY() - b.getY() * c.getX());
+    }
 }

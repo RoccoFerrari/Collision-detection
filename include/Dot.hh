@@ -32,6 +32,8 @@ namespace Geometry {
         void operator+=(const Dot& other);
         // Scalar product
         double operator*(const Dot& other) const;
+        // Scalar Triple Product
+        double STP(const Dot& a, const Dot& b, const Dot& c);
     };
 }
 
