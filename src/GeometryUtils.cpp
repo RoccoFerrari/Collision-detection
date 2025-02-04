@@ -9,14 +9,14 @@ namespace Geometry {
     private:
         int PointFarthestFromEdge(Point a, Point b, Point p[], int n) {
             Point e = b - a;
-            Point eperp = Point(-e.getY(), e.getX());
+            Point eperp = Point(-e.getY(), e.getX(), 0);
 
             int bestIndex = -1;
             double maxVal = -std::numeric_limits<double>::max();
             double rightMostVal = -std::numeric_limits<double>::max();
 
             for(int i = 0; i < n; i++) {
-                double d = ((p[i] - a) * eperp) / sqrt(eperp * eperp);
+                double d = ((p[i] - a) * eperp) / std::sqrt(eperp * eperp);
                 double r = (p[i] - a) * e;
                 if(d > maxVal || (d == maxVal && r > rightMostVal)) {
                     maxVal = d;
@@ -26,7 +26,7 @@ namespace Geometry {
             }
             return bestIndex;
         }
-        float CrossProduct(const Point& a, const Point& b, const Point& c) {
+        double CrossProduct(const Point& a, const Point& b, const Point& c) {
             return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
         }
         void QuickHullRecursive(Point a, Point b, std::vector<Point>& points, std::vector<Point>& hull) {
@@ -34,14 +34,12 @@ namespace Geometry {
                 return;
             }
 
-            // Finds the point farthest from ab
             int farthestIndex = PointFarthestFromEdge(a, b, points.data(), points.size());
             if (farthestIndex == -1) {
                 return;
             }
             Point c = points[farthestIndex];
 
-            // 2. Divide i punti in due insiemi: sopra ac e sopra cb
             std::vector<Point> leftSet, rightSet;
             for (const Point& p : points) {
                 if (CrossProduct(a, c, p) > 0) {
@@ -52,7 +50,6 @@ namespace Geometry {
                 }
             }
 
-            // 3. Ricorri per i due sottoinsiemi
             QuickHullRecursive(a, c, leftSet, hull);
             hull.push_back(c);
             QuickHullRecursive(c, b, rightSet, hull);
