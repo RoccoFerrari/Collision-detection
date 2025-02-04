@@ -25,6 +25,13 @@ namespace Geometry {
         void setX(int x);
         void setY(int y);
         void setZ(int z);
+
+        // Operation between Dots
+        // Sum
+        Dot operator+(const Dot& other) const;
+        void operator+=(const Dot& other);
+        // Scalar product
+        double operator*(const Dot& other) const;
     };
 }
 
