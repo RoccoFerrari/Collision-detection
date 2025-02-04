@@ -21,8 +21,9 @@ namespace Geometry {
 
         // Compute barycentric coordinates (u, v, w) for
         // point p with respect to triangle (a, b, c)
-        // probably this fun is to move in another file
         void Barycentric(Point a, Point b, Point c, Point p, double& u, double& v, double& w);
+        // Test if point p is contained in triangle (a, b, c)
+        bool TestPointTriangle(Point p, Point a, Point b, Point c);
     };
 
 }

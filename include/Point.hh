@@ -33,6 +33,8 @@ namespace Geometry {
         void operator+=(const Point& other);
         // Scalar product
         double operator*(const Point& other) const;
+        // Cross product
+        static Point Cross(const Point& p1, const Point& p2);
         // Scalar Triple Product
         double STP(const Point& a, const Point& b, const Point& c);
     };
