@@ -1,11 +1,11 @@
-#include "../include/Point.hh"
+#include "../include/Point3D.hh"
 #include "../include/Triangle.hh"
 #include <cmath>
 
 namespace Geometry {
 
     // Constructors
-    Triangle::Triangle(const Point& v1, const Point& v2, const Point& v3) : a(v1), b(v2), c(v3) {}
+    Triangle::Triangle(const Point3D& v1, const Point3D& v2, const Point3D& v3) : a(v1), b(v2), c(v3) {}
     // Operations with triangles
     double Triangle::getArea() const {
         double s = (getPerimeter() / 2);
@@ -22,15 +22,15 @@ namespace Geometry {
         c.setX(c.getX() + dx);
         c.setY(c.getY() + dy);
     }
-    double Triangle::getDistance(const Point& p1, const Point& p2) const {
+    double Triangle::getDistance(const Point3D& p1, const Point3D& p2) const {
         return std::sqrt(std::pow(p1.getX() - p2.getX(), 2) + std::pow(p1.getY() - p2.getY(), 2));
     }
     
     // Compute barycentric coordinates (u, v, w) for
-    // point p with respect to triangle (a, b, c)
-    void Triangle::Barycentric(Point a, Point b, Point c, Point p, double& u, double& v, double& w) {
+    // Point3D p with respect to triangle (a, b, c)
+    void Triangle::Barycentric(Point3D a, Point3D b, Point3D c, Point3D p, double& u, double& v, double& w) {
         // Unnormalized triangle normal
-        Point m = Point::Cross(b - a, a - c);
+        Point3D m = Point3D::cross3D(b - a, a - c);
         // Nominators and one-over-denominator for u and v ratios
         double nu, nv, ood;
         double x = std::abs(m.getX()), y = std::abs(m.getY()), z = std::abs(m.getZ());
@@ -58,7 +58,7 @@ namespace Geometry {
     double Triangle::TriArea2D(double x1, double y1, double x2, double y2, double x3, double y3) {
         return (x1-x2)*(y2-y3) - (x2-x3)*(y1-y2);
     }
-    bool Triangle::TestPointTriangle(Point p, Point a, Point b, Point c) {
+    bool Triangle::TestPoint3DTriangle(Point3D p, Point3D a, Point3D b, Point3D c) {
         double u, v, w;
         Barycentric(a, b, c, p, u, v, w);
         return v >= 0.0 && w >= 0.0 && (v + w) <= 1.0;

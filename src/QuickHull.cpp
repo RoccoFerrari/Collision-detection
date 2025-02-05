@@ -1,4 +1,4 @@
-#include "../include/GeometryUtils.hh"
+#include "../include/QuickHull.hh"
 #include <vector>
 #include <algorithm> // Just for std::swap
 #include <limits>
@@ -6,9 +6,9 @@
 #include <iostream>
 
 namespace Geometry {
-    int GeometryUtils::PointFarthestFromEdge(Point a, Point b, Point p[], int n) {
-        Point e = b - a;
-        Point eperp = Point(-e.getY(), e.getX(), 0);
+    int QuickHull::point2D_farthest_from_edge(Point2D a, Point2D b, Point2D p[], int n) {
+        Point2D e = b - a;
+        Point2D eperp = Point2D(-e.getY(), e.getX());
 
         int bestIndex = -1;
         double maxVal = -std::numeric_limits<double>::max();
@@ -25,36 +25,36 @@ namespace Geometry {
         }
         return bestIndex;
     }
-    double GeometryUtils::CrossProduct(const Point& a, const Point& b, const Point& c) {
+    double QuickHull::cross_product(const Point2D& a, const Point2D& b, const Point2D& c) {
         return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
     }
-    void GeometryUtils::QuickHullRecursive(Point a, Point b, std::vector<Point>& points, std::vector<Point>& hull) {
+    void QuickHull::quick_hull_recursive(Point2D a, Point2D b, std::vector<Point2D>& points, std::vector<Point2D>& hull) {
         if (points.empty()) {
             return;
         }
 
-        int farthestIndex = GeometryUtils::PointFarthestFromEdge(a, b, points.data(), points.size());
+        int farthestIndex = QuickHull::point2D_farthest_from_edge(a, b, points.data(), points.size());
         if (farthestIndex == -1) {
             return;
         }
-        Point c = points[farthestIndex];
+        Point2D c = points[farthestIndex];
 
-        std::vector<Point> leftSet, rightSet;
-        for (const Point& p : points) {
-            if (CrossProduct(a, c, p) > 0) {
+        std::vector<Point2D> leftSet, rightSet;
+        for (const Point2D& p : points) {
+            if (cross_product(a, c, p) > 0) {
                 leftSet.push_back(p);
             }
-            if (CrossProduct(c, b, p) > 0) {
+            if (cross_product(c, b, p) > 0) {
                 rightSet.push_back(p);
             }
         }
 
-        GeometryUtils::QuickHullRecursive(a, c, leftSet, hull);
+        QuickHull::quick_hull_recursive(a, c, leftSet, hull);
         hull.push_back(c);
-        GeometryUtils::QuickHullRecursive(c, b, rightSet, hull);
+        QuickHull::quick_hull_recursive(c, b, rightSet, hull);
     }
 
-    std::vector<Point> GeometryUtils::QuickHull(Point points[], int n) {
+    std::vector<Point2D> QuickHull::quick_hull(Point2D points[], int n) {
         if (n <= 0) // Handle n = 0
             return {}; // Return empty vector
         
@@ -65,7 +65,7 @@ namespace Geometry {
             return {points[0], points[1]};
         
         // Create a copy of the points to avoid modifying the original array
-        std::vector<Point> pointsCopy(points, points + n);
+        std::vector<Point2D> pointsCopy(points, points + n);
 
         // Finds min and max x-coordinate points
         int minIndex = 0, maxIndex = 0;
@@ -80,27 +80,27 @@ namespace Geometry {
         std::swap(pointsCopy[0], pointsCopy[minIndex]);
         std::swap(pointsCopy[1], pointsCopy[maxIndex]);
 
-        // Divides points into 2 sets
-        std::vector<Point> upperSet, lowerSet;
+        // Divides Point2Ds into 2 sets
+        std::vector<Point2D> upperSet, lowerSet;
         for (int i = 2; i < n; i++) {
-            if (GeometryUtils::CrossProduct(pointsCopy[0], pointsCopy[1], pointsCopy[i]) > 0){
+            if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) > 0){
                 std::cout << "Ordine dei punti aggiunti a upperSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
                 upperSet.push_back(pointsCopy[i]);}
-            else if (GeometryUtils::CrossProduct(pointsCopy[0], pointsCopy[1], pointsCopy[i]) < 0){
+            else if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) < 0){
                 std::cout << "Ordine dei punti aggiunti a lowerSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
                 lowerSet.push_back(pointsCopy[i]);}
         }
         // Builds the convex hull recursively
-        std::vector<Point> hull;
+        std::vector<Point2D> hull;
         std::cout << "Punti aggiunti a hull: (" << pointsCopy[0].getX() << ", " << pointsCopy[0].getY() << ")" << std::endl;
         hull.push_back(pointsCopy[0]);
-        GeometryUtils::QuickHullRecursive(pointsCopy[0], pointsCopy[1], upperSet, hull);
+        QuickHull::quick_hull_recursive(pointsCopy[0], pointsCopy[1], upperSet, hull);
         std::cout << "Punti aggiunti a hull: (" << pointsCopy[1].getX() << ", " << pointsCopy[1].getY() << ")" << std::endl;
         hull.push_back(pointsCopy[1]);
 
         // Reverse lower set and call recursive function.
         std::reverse(lowerSet.begin(), lowerSet.end()); 
-        GeometryUtils::QuickHullRecursive(pointsCopy[1], pointsCopy[0], lowerSet, hull);
+        QuickHull::quick_hull_recursive(pointsCopy[1], pointsCopy[0], lowerSet, hull);
         std::cout << "Ordine finale di Hull prima di essere ritornato: " << std::endl;
         for (const auto& point : hull) {
            std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;
