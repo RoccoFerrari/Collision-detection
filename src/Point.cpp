@@ -65,7 +65,7 @@ namespace Geometry {
         return this->x * other.x + this->y * other.y + this->z * other.z;
     }
     // Cross product (vectorial product)
-    static Point Cross(const Point& p1, const Point& p2) {
+    Point Point::Cross(const Point& p1, const Point& p2) {
         double x = p1.getY() * p2.getZ() - p1.getZ() * p2.getY();
         double y = p1.getZ() * p2.getX() - p1.getX() * p2.getZ();
         double z = p1.getX() * p2.getY() - p1.getY() * p2.getX();

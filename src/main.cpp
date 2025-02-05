@@ -2,7 +2,6 @@
 // g++ Point.cpp GeometryUtils.cpp main.cpp -o build/test01.exe -o build/Point.o -o build/GeometryUtils.o -o build/main.o
 
 #include <iostream>
-#include "../include/Point.hh"
 # include "../include/GeometryUtils.hh"
 
 int main() {

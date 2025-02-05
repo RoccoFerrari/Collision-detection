@@ -17,8 +17,10 @@ namespace Geometry {
         double getArea() const override;
         double getPerimeter() const override;
         void move(double dx, double dy) override;
-        
+        double getDistance(const Point& p1, const Point& p2) const;
 
+        // Support function for Barycentric function
+        double TriArea2D(double x1, double y1, double x2, double y2, double x3, double y3);
         // Compute barycentric coordinates (u, v, w) for
         // point p with respect to triangle (a, b, c)
         void Barycentric(Point a, Point b, Point c, Point p, double& u, double& v, double& w);
