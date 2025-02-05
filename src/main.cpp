@@ -5,10 +5,11 @@
 // 3. Search name_executable.exe (in my case Test01.exe) and press Enter
 
 #include <iostream>
+#include <vector>
 # include "../include/QuickHull.hh"
 
 int main() {
-    Geometry::Point2D points[] = {
+    std::vector<Geometry::Point2D> points = {
         {0, 0},
         {1, 5},
         {2, 2},
@@ -21,7 +22,7 @@ int main() {
         {9, 2}
     };
     int n = sizeof(points) / sizeof(points[0]);
-    std::vector<Geometry::Point2D> hull = Geometry::QuickHull::quick_hull(points, n);
+    std::vector<Geometry::Point2D> hull = Geometry::QuickHull::quick_hull(points);
     // std::cout << "Punti dell'inviluppo convesso:" << std::endl;
     // for (const auto& point : hull) {
     //     std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;

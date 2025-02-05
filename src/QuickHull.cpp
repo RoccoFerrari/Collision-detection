@@ -54,7 +54,8 @@ namespace Geometry {
         QuickHull::quick_hull_recursive(c, b, rightSet, hull);
     }
 
-    std::vector<Point2D> QuickHull::quick_hull(Point2D points[], int n) {
+    std::vector<Point2D> QuickHull::quick_hull(std::vector<Point2D> points) {
+        int n = points.size();
         if (n <= 0) // Handle n = 0
             return {}; // Return empty vector
         
@@ -65,7 +66,7 @@ namespace Geometry {
             return {points[0], points[1]};
         
         // Create a copy of the points to avoid modifying the original array
-        std::vector<Point2D> pointsCopy(points, points + n);
+        std::vector<Point2D> pointsCopy = points;
 
         // Finds min and max x-coordinate points
         int minIndex = 0, maxIndex = 0;
