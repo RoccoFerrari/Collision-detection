@@ -1,5 +1,8 @@
-// Use this command to link file.hh
-// g++ Point.cpp GeometryUtils.cpp main.cpp -o build/test01.exe -o build/Point.o -o build/GeometryUtils.o -o build/main.o
+// Use cMake for link every part of the programm, follow online tutorials for get started
+// For compile:
+// 1. Using the Terminal, go to build/
+// 2. Digit the command (I'm using mingw): mingw32-make
+// 3. Search name_executable.exe (in my case Test01.exe) and press Enter
 
 #include <iostream>
 # include "../include/GeometryUtils.hh"
@@ -19,9 +22,9 @@ int main() {
     };
     int n = sizeof(points) / sizeof(points[0]);
     std::vector<Geometry::Point> hull = Geometry::GeometryUtils::QuickHull(points, n);
-    std::cout << "Punti dell'inviluppo convesso:" << std::endl;
-    for (const auto& point : hull) {
-        std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;
-    }
+    // std::cout << "Punti dell'inviluppo convesso:" << std::endl;
+    // for (const auto& point : hull) {
+    //     std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;
+    // }
     return 0;
 }

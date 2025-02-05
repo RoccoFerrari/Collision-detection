@@ -3,6 +3,7 @@
 #include <algorithm> // Just for std::swap
 #include <limits>
 #include <cmath>
+#include <iostream>
 
 namespace Geometry {
     int GeometryUtils::PointFarthestFromEdge(Point a, Point b, Point p[], int n) {
@@ -54,39 +55,56 @@ namespace Geometry {
     }
 
     std::vector<Point> GeometryUtils::QuickHull(Point points[], int n) {
-        if(n < 3) {
-            std::vector<Point> hull(points, points + n);
-            return hull;
-        }
+        if (n <= 0) // Handle n = 0
+            return {}; // Return empty vector
+        
+        if (n == 1) // Handle n = 1
+            return {points[0]};
+        
+        if (n == 2) // Handle n = 2
+            return {points[0], points[1]};
+        
+        // Create a copy of the points to avoid modifying the original array
+        std::vector<Point> pointsCopy(points, points + n);
 
         // Finds min and max x-coordinate points
         int minIndex = 0, maxIndex = 0;
-        for(int i = 1; i < n; ++i) {
-            if(points[i].getX() < points[minIndex].getX()) 
+        for (int i = 1; i < n; ++i) {
+            if (pointsCopy[i].getX() < pointsCopy[minIndex].getX())
                 minIndex = i;
-            if(points[i].getX() > points[maxIndex].getX())
+            if (pointsCopy[i].getX() > pointsCopy[maxIndex].getX())
                 maxIndex = i;
         }
 
         // Swaps min and max with first 2 elements
-        std::swap(points[0], points[minIndex]);
-        std::swap(points[1], points[maxIndex]);
+        std::swap(pointsCopy[0], pointsCopy[minIndex]);
+        std::swap(pointsCopy[1], pointsCopy[maxIndex]);
 
         // Divides points into 2 sets
         std::vector<Point> upperSet, lowerSet;
-        for (int i = 2; i < n; i++){
-            if(GeometryUtils::CrossProduct(points[0], points[1], points[i]) > 0)
-                upperSet.push_back(points[i]);
-            else
-                lowerSet.push_back(points[i]);
+        for (int i = 2; i < n; i++) {
+            if (GeometryUtils::CrossProduct(pointsCopy[0], pointsCopy[1], pointsCopy[i]) > 0){
+                std::cout << "Ordine dei punti aggiunti a upperSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
+                upperSet.push_back(pointsCopy[i]);}
+            else if (GeometryUtils::CrossProduct(pointsCopy[0], pointsCopy[1], pointsCopy[i]) < 0){
+                std::cout << "Ordine dei punti aggiunti a lowerSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
+                lowerSet.push_back(pointsCopy[i]);}
         }
-        // Builds the convex hull ricorsively
+        // Builds the convex hull recursively
         std::vector<Point> hull;
-        hull.push_back(points[0]);
-        GeometryUtils::QuickHullRecursive(points[0], points[1], upperSet, hull);
-        hull.push_back(points[1]);
-        GeometryUtils::QuickHullRecursive(points[1], points[0], lowerSet, hull);
+        std::cout << "Punti aggiunti a hull: (" << pointsCopy[0].getX() << ", " << pointsCopy[0].getY() << ")" << std::endl;
+        hull.push_back(pointsCopy[0]);
+        GeometryUtils::QuickHullRecursive(pointsCopy[0], pointsCopy[1], upperSet, hull);
+        std::cout << "Punti aggiunti a hull: (" << pointsCopy[1].getX() << ", " << pointsCopy[1].getY() << ")" << std::endl;
+        hull.push_back(pointsCopy[1]);
 
+        // Reverse lower set and call recursive function.
+        std::reverse(lowerSet.begin(), lowerSet.end()); 
+        GeometryUtils::QuickHullRecursive(pointsCopy[1], pointsCopy[0], lowerSet, hull);
+        std::cout << "Ordine finale di Hull prima di essere ritornato: " << std::endl;
+        for (const auto& point : hull) {
+           std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;
+        }
         return hull;
     }
 }
