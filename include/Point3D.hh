@@ -5,12 +5,12 @@
 namespace Geometry {
     class Point3D {
     private:
-        double x;
-        double y;
-        double z;
+        float x;
+        float y;
+        float z;
     public:
         // Constructors
-        Point3D(double x = 0.0, double y = 0.0, double z = 0.0);
+        Point3D(float x = 0.0, float y = 0.0, float z = 0.0);
         Point3D(const Point3D& other);
         ~Point3D() = default;
 
@@ -18,9 +18,9 @@ namespace Geometry {
         Point3D& operator=(const Point3D& other);
 
         // Getter methods
-        double getX() const;
-        double getY() const;
-        double getZ() const;
+        float getX() const;
+        float getY() const;
+        float getZ() const;
         // Setter methods
         void setX(int x);
         void setY(int y);
@@ -32,11 +32,11 @@ namespace Geometry {
         Point3D operator-(const Point3D& other) const;
         void operator+=(const Point3D& other);
         // Scalar product
-        double operator*(const Point3D& other) const;
+        float operator*(const Point3D& other) const;
         // Cross product
         static Point3D cross3D(const Point3D& p1, const Point3D& p2);
         // Scalar Triple Product
-        double stp3D(const Point3D& a, const Point3D& b, const Point3D& c);
+        float stp3D(const Point3D& a, const Point3D& b, const Point3D& c);
     };
 }
 

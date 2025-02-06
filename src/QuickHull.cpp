@@ -3,7 +3,6 @@
 #include <algorithm> // Just for std::swap
 #include <limits>
 #include <cmath>
-#include <iostream>
 
 namespace Geometry {
     int QuickHull::point2D_farthest_from_edge(Point2D a, Point2D b, std::vector<Point2D> p) {
@@ -12,12 +11,12 @@ namespace Geometry {
         Point2D eperp = Point2D(-e.getY(), e.getX());
 
         int bestIndex = -1;
-        double maxVal = -std::numeric_limits<double>::max();
-        double rightMostVal = -std::numeric_limits<double>::max();
+        float maxVal = -std::numeric_limits<float>::max();
+        float rightMostVal = -std::numeric_limits<float>::max();
 
         for(int i = 0; i < n; i++) {
-            double d = ((p[i] - a) * eperp) / std::sqrt(eperp * eperp);
-            double r = (p[i] - a) * e;
+            float d = ((p[i] - a) * eperp) / std::sqrt(eperp * eperp);
+            float r = (p[i] - a) * e;
             if(d > maxVal || (d == maxVal && r > rightMostVal)) {
                 maxVal = d;
                 rightMostVal = r;
@@ -26,7 +25,7 @@ namespace Geometry {
         }
         return bestIndex;
     }
-    double QuickHull::cross_product(const Point2D& a, const Point2D& b, const Point2D& c) {
+    float QuickHull::cross_product(const Point2D& a, const Point2D& b, const Point2D& c) {
         return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
     }
     void QuickHull::quick_hull_recursive(Point2D a, Point2D b, std::vector<Point2D>& points, std::vector<Point2D>& hull) {

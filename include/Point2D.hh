@@ -5,11 +5,11 @@
 namespace Geometry {
     class Point2D {
     private:
-        double x;
-        double y;
+        float x;
+        float y;
     public:
         // Constructors
-        Point2D(double x = 0.0, double y = 0.0);
+        Point2D(float x = 0.0, float y = 0.0);
         Point2D(const Point2D& other);
         ~Point2D() = default;
 
@@ -17,8 +17,8 @@ namespace Geometry {
         Point2D& operator=(const Point2D& other);
 
         // Getter methods
-        double getX() const;
-        double getY() const;
+        float getX() const;
+        float getY() const;
         // Setter methods
         void setX(int x);
         void setY(int y);
@@ -29,11 +29,11 @@ namespace Geometry {
         Point2D operator-(const Point2D& other) const;
         void operator+=(const Point2D& other);
         // Scalar product
-        double operator*(const Point2D& other) const;
+        float operator*(const Point2D& other) const;
         // Cross product
-        double cross2D(const Point2D& p1) const ;
+        float cross2D(const Point2D& p1) const ;
         // Scalar Triple Product
-        double stp2D(const Point2D& b, const Point2D& c) const ;
+        float stp2D(const Point2D& b, const Point2D& c) const ;
     };
 }
 
