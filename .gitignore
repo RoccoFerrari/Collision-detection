@@ -7,3 +7,4 @@ config.ini     # Local configuration files
 .vscode/*.json
 *.json         # .json files
 CMakeLists.txt
+src/main.cpp
