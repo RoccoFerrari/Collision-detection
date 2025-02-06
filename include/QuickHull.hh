@@ -7,7 +7,7 @@
 namespace Geometry {
     class QuickHull {
     private:
-        static int point2D_farthest_from_edge(Point2D a, Point2D b, Point2D p[], int n);
+        static int point2D_farthest_from_edge(Point2D a, Point2D b, std::vector<Point2D> p);
         static double cross_product(const Point2D& a, const Point2D& b, const Point2D& c);
         static void quick_hull_recursive(Point2D a, Point2D b, std::vector<Point2D>& Point2Ds, std::vector<Point2D>& hull);
     public:

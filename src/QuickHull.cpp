@@ -6,7 +6,8 @@
 #include <iostream>
 
 namespace Geometry {
-    int QuickHull::point2D_farthest_from_edge(Point2D a, Point2D b, Point2D p[], int n) {
+    int QuickHull::point2D_farthest_from_edge(Point2D a, Point2D b, std::vector<Point2D> p) {
+        int n = p.size();
         Point2D e = b - a;
         Point2D eperp = Point2D(-e.getY(), e.getX());
 
@@ -33,7 +34,7 @@ namespace Geometry {
             return;
         }
 
-        int farthestIndex = QuickHull::point2D_farthest_from_edge(a, b, points.data(), points.size());
+        int farthestIndex = QuickHull::point2D_farthest_from_edge(a, b, points);
         if (farthestIndex == -1) {
             return;
         }
@@ -84,28 +85,23 @@ namespace Geometry {
         // Divides Point2Ds into 2 sets
         std::vector<Point2D> upperSet, lowerSet;
         for (int i = 2; i < n; i++) {
-            if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) > 0){
-                std::cout << "Ordine dei punti aggiunti a upperSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
-                upperSet.push_back(pointsCopy[i]);}
-            else if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) < 0){
-                std::cout << "Ordine dei punti aggiunti a lowerSet: (" << pointsCopy[i].getX() << ", " << pointsCopy[i].getY() << ")" << std::endl;
-                lowerSet.push_back(pointsCopy[i]);}
+            if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) > 0) 
+                upperSet.push_back(pointsCopy[i]);
+            else if (QuickHull::cross_product(pointsCopy[0], pointsCopy[1], pointsCopy[i]) < 0) 
+                lowerSet.push_back(pointsCopy[i]);
         }
+
         // Builds the convex hull recursively
         std::vector<Point2D> hull;
-        std::cout << "Punti aggiunti a hull: (" << pointsCopy[0].getX() << ", " << pointsCopy[0].getY() << ")" << std::endl;
         hull.push_back(pointsCopy[0]);
+
         QuickHull::quick_hull_recursive(pointsCopy[0], pointsCopy[1], upperSet, hull);
-        std::cout << "Punti aggiunti a hull: (" << pointsCopy[1].getX() << ", " << pointsCopy[1].getY() << ")" << std::endl;
+
         hull.push_back(pointsCopy[1]);
 
         // Reverse lower set and call recursive function.
         std::reverse(lowerSet.begin(), lowerSet.end()); 
         QuickHull::quick_hull_recursive(pointsCopy[1], pointsCopy[0], lowerSet, hull);
-        std::cout << "Ordine finale di Hull prima di essere ritornato: " << std::endl;
-        for (const auto& point : hull) {
-           std::cout << "(" << point.getX() << ", " << point.getX() << ")" << std::endl;
-        }
         return hull;
     }
 }
