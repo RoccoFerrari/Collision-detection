@@ -5,9 +5,7 @@
 namespace Geometry {
     class Point3D {
     private:
-        float x;
-        float y;
-        float z;
+        float coordinates[3];
     public:
         // Constructors
         Point3D(float x = 0.0, float y = 0.0, float z = 0.0);
@@ -22,9 +20,9 @@ namespace Geometry {
         float getY() const;
         float getZ() const;
         // Setter methods
-        void setX(int x);
-        void setY(int y);
-        void setZ(int z);
+        void setX(float x);
+        void setY(float y);
+        void setZ(float z);
 
         // Operation between Dots
         // Sum

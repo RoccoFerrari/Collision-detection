@@ -3,66 +3,66 @@
 namespace Geometry {
     // Constructors
     Point3D::Point3D(float x, float y, float z) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
+        this->coordinates[0] = x;
+        this->coordinates[1] = y;
+        this->coordinates[2] = z;
     }
     Point3D::Point3D(const Point3D& other) {
-        this->x = other.x;
-        this->y = other.y;
-        this->z = other.z;
+        this->coordinates[0] = other.coordinates[0];
+        this->coordinates[1] = other.coordinates[1];
+        this->coordinates[2] = other.coordinates[2];
     }
 
     // Operator =
     Point3D& Point3D::operator=(const Point3D& other) {
-        this->x = other.x;
-        this->y = other.y;
-        this->z = other.z;
+        this->coordinates[0] = other.coordinates[0];
+        this->coordinates[1] = other.coordinates[1];
+        this->coordinates[2] = other.coordinates[2];
         return *this;
     }
 
     // Getter methods
     float Point3D::getX() const {
-        return this->x;
+        return this->coordinates[0];
     }
     float Point3D::getY() const {
-        return this->y;
+        return this->coordinates[1];
     }
     float Point3D::getZ() const {
-        return this->z;
+        return this->coordinates[2];
     }
     // Setter methods
-    void Point3D::setX(int x) {
-        this->x = x;
+    void Point3D::setX(float x) {
+        this->coordinates[0] = x;
     }
-    void Point3D::setY(int y) {
-        this->y = y;
+    void Point3D::setY(float y) {
+        this->coordinates[1] = y;
     }
-    void Point3D::setZ(int z) {
-        this->z = z;
+    void Point3D::setZ(float z) {
+        this->coordinates[2] = z;
     }
 
     // Operation between Point3Ds
     Point3D Point3D::operator+(const Point3D& other) const {
-        float newX = this->x + other.x;
-        float newY = this->y + other.y;
-        float newZ = this->z + other.z;
+        float newX = this->coordinates[0] + other.coordinates[0];
+        float newY = this->coordinates[1] + other.coordinates[1];
+        float newZ = this->coordinates[2] + other.coordinates[2];
         return Point3D(newX, newY, newZ);
     }
     Point3D Point3D::operator-(const Point3D& other) const {
-        float newX = this->x - other.x;
-        float newY = this->y - other.y;
-        float newZ = this->z - other.z;
+        float newX = this->coordinates[0] - other.coordinates[0];
+        float newY = this->coordinates[1] - other.coordinates[1];
+        float newZ = this->coordinates[2] - other.coordinates[2];
         return Point3D(newX, newY, newZ);
     }
     void Point3D::operator+=(const Point3D& other) {
-        this->x += other.x;
-        this->y += other.y;
-        this->z += other.z;
+        this->coordinates[0] += other.coordinates[0];
+        this->coordinates[1] += other.coordinates[1];
+        this->coordinates[2] += other.coordinates[2];
     }
     // Scalar product
     float Point3D::operator*(const Point3D& other) const {
-        return this->x * other.x + this->y * other.y + this->z * other.z;
+        return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1] + this->coordinates[2] * other.coordinates[2];
     }
     // Cross product (vectorial product)
     Point3D Point3D::cross3D(const Point3D& p1, const Point3D& p2) {
