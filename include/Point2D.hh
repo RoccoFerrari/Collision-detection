@@ -5,8 +5,7 @@
 namespace Geometry {
     class Point2D {
     private:
-        float x;
-        float y;
+        float coordinates[2];
     public:
         // Constructors
         Point2D(float x = 0.0, float y = 0.0);
@@ -28,6 +27,9 @@ namespace Geometry {
         Point2D operator+(const Point2D& other) const;
         Point2D operator-(const Point2D& other) const;
         void operator+=(const Point2D& other);
+        // Operator[]
+        float& operator[](int index);
+        const float& operator[](int index) const;
         // Scalar product
         float operator*(const Point2D& other) const;
         // Cross product

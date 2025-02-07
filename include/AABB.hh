@@ -11,12 +11,22 @@
         class AABB {
         private:
             Point3D center; // center point of AABB
-            float x; // radius extends (rx, ry, rz)
-            float y;
-            float z;
+            float radius[3]; // radius extends (rx, ry, rz)
         public:
+            // Constructor
             AABB(Point3D c, float x = 0, float y = 0, float z = 0);
+
+            // Operator[]
+            float& operator[](int index);
+            const float& operator[](int index) const;
+
+            // Test that evaluates the instersaction between two AABB
             bool test_AABB_intersection(const AABB& other) const ;
+
+            // Transform AABB A (this) by the matrix M and traslation T,
+            // find maximum extends, and store result into AABB B (other)
+            void update_AABB(float M[3][3], float T[3], AABB& other);
+
         };
     }
 

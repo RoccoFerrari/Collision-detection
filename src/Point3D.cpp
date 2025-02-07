@@ -1,4 +1,5 @@
 #include "../include/Point3D.hh"
+#include <stdexcept>
 
 namespace Geometry {
     // Constructors
@@ -60,6 +61,27 @@ namespace Geometry {
         this->coordinates[1] += other.coordinates[1];
         this->coordinates[2] += other.coordinates[2];
     }
+    // Overloading operator[]
+    float& Point3D::operator[](int index) {
+        switch (index) {
+        case 0: return coordinates[0];
+        case 1: return coordinates[1];
+        case 2: return coordinates[2];
+        default: throw std::out_of_range("Index out of range");
+        }
+    }
+
+    // Overloading operator[] - const version
+    const float& Point3D::operator[](int index) const {
+        switch (index) {
+        case 0: return coordinates[0];
+        case 1: return coordinates[1];
+        case 2: return coordinates[2];
+        default: throw std::out_of_range("Index out of range");
+        }
+    }
+
+
     // Scalar product
     float Point3D::operator*(const Point3D& other) const {
         return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1] + this->coordinates[2] * other.coordinates[2];

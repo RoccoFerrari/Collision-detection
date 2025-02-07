@@ -29,6 +29,9 @@ namespace Geometry {
         Point3D operator+(const Point3D& other) const;
         Point3D operator-(const Point3D& other) const;
         void operator+=(const Point3D& other);
+        // Operator[]
+        float& operator[](int index);
+        const float& operator[](int index) const;
         // Scalar product
         float operator*(const Point3D& other) const;
         // Cross product
