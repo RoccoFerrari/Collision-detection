@@ -37,7 +37,7 @@ namespace Geometry {
         // Cross product
         static Point3D cross3D(const Point3D& p1, const Point3D& p2);
         // Scalar Triple Product
-        float stp3D(const Point3D& a, const Point3D& b, const Point3D& c);
+        static float stp3D(const Point3D& a, const Point3D& b, const Point3D& c);
     };
 }
 

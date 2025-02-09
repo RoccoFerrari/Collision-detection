@@ -77,6 +77,6 @@ namespace Geometry {
     // Scalar Triple Product - geometrically, corresponds to the volume of a parallelepiped
     // formed by three indipendet vectors a, b, c
     float Point2D::stp2D(const Point2D& b, const Point2D& c) const {
-    return (b.coordinates[0] - coordinates[0]) * (c.coordinates[1] - coordinates[1]) - (b.coordinates[1] - coordinates[1]) * (c.coordinates[0] - coordinates[0]);
+    return (b.coordinates[0] - this->coordinates[0]) * (c.coordinates[1] - this->coordinates[1]) - (b.coordinates[1] - this->coordinates[1]) * (c.coordinates[0] - this->coordinates[0]);
   }
 }
