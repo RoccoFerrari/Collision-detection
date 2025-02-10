@@ -86,6 +86,12 @@ namespace Geometry {
     float Point3D::operator*(const Point3D& other) const {
         return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1] + this->coordinates[2] * other.coordinates[2];
     }
+    Point3D& Point3D::operator*=(float scalar) {
+        this->coordinates[0] *= scalar;
+        this->coordinates[1] *= scalar;
+        this->coordinates[2] *= scalar;
+        return *this;
+    }
     // Cross product (vectorial product)
     Point3D Point3D::cross3D(const Point3D& p1, const Point3D& p2) {
         float x = p1.getY() * p2.getZ() - p1.getZ() * p2.getY();
