@@ -1,4 +1,6 @@
 #include "../include/Sphere.hh"
+#include "../include/Matrix.hh"
+#include "../include/GeometricUtils.hh"
 #include <cmath>
 
 namespace Geometry {
@@ -86,5 +88,46 @@ namespace Geometry {
         // Grow sphere to include all points
         for(int i = 0; i < n; ++i)
             sphere.update_sphere_with_outer_point(points[i]);
+    }
+    // Eigen sphere uses matrix rotation to approximate a more accurated bounding sphere
+    void Sphere::eigen_sphere(std::vector<Point3D> points) {
+        int n = points.size();
+        Matrix m, v;
+
+        // Compute the covariance matrix m
+        m.covariance_matrix(points);
+        // Decompose it into eigenvectors (in v) and eigenvalues (in m)
+        Matrix::jacobi(m, v);
+
+        // Find the component with largest magnitude eigenvalue (largest spread)
+        Point3D e;
+        int maxc = 0;
+        float maxf, maxe = abs(m[0][0]);
+        if((maxf = abs(m[1][1])) > maxe) 
+            maxc = 1, maxe = maxf;
+        if((maxf = abs(m[2][2])) > maxe)
+            maxc = 2, maxe = maxf;
+        e[0] = v[0][maxc];
+        e[1] = v[1][maxc];
+        e[2] = v[2][maxc];
+
+        // Find the most extreme points along direction 'e'
+        int imin, imax;
+        GeometryUtils::extreme_points_along_direction(e, points, &imin, &imax);
+        Point3D minpt = points[imin];
+        Point3D maxpt = points[imax];
+        float dist = sqrt((maxpt - minpt) * (maxpt - minpt));
+        this->radius = dist * 0.5f;
+        this->center = (minpt + maxpt) * 0.5f;
+    }
+    void Sphere::ritter_eigen_sphere(Sphere& s, std::vector<Point3D> points) {
+        int n = points.size();
+
+        // Start with sphere from maximum spread
+        s.eigen_sphere(points);
+
+        // Grow sphere to include all points
+        for(int i = 0; i < n; ++i) 
+            s.update_sphere_with_outer_point(points[i]);
     }
 }

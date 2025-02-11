@@ -12,7 +12,7 @@ namespace Geometry {
     public:
         // Method that returns indice max into pt vector of the most distante point along the direction dir
         // Usable for AABB's creation
-        static int extreme_point_along_direction(Point3D& dir, std::vector<Point3D> points);
+        static void extreme_points_along_direction(Point3D& dir, std::vector<Point3D> points, int *imin, int *imax);
     };
 }
 
