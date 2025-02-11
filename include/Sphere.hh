@@ -20,7 +20,11 @@ namespace Geometry {
         // Eigen sphere uses matrix rotation to approximate a more accurated bounding sphere
         void eigen_sphere(std::vector<Point3D> points);
     public:
-        Sphere(Point3D c, float r = 0);
+        Sphere(Point3D c = {}, float r = 1);
+
+        Point3D getC() const ;
+        float getR() const ;
+
         bool sphere_sphere_intersection(const Sphere& other) const ;
 
         // Ritter sphere is an approximate bounding sphere. It is not optimal ma quite inexpensive.

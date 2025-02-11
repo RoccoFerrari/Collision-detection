@@ -8,6 +8,14 @@ namespace Geometry {
         this->center = c;
         this->radius = r;
     }
+
+    Point3D Sphere::getC() const {
+        return this->center;
+    }
+    float Sphere::getR() const {
+        return this->radius;
+    }
+
     bool Sphere::sphere_sphere_intersection(const Sphere& other) const {
         Point3D d = this->center - other.center;
         float dist2 = d * d;
