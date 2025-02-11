@@ -1,9 +1,10 @@
 #include "../include/Matrix.hh"
 #include <stdexcept>
+#include <cmath>
 
 namespace Geometry {
     // Constructor
-    Matrix::Matrix(int r = 3, int c = 3) : rows(r), cols(c) {
+    Matrix::Matrix(int r, int c) : rows(r), cols(c) {
         data.resize(r);
         for (int i = 0; i < r; ++i) 
             data[i].resize(c, 0.0f); 
@@ -26,6 +27,15 @@ namespace Geometry {
             return 0.0f;
         }
     }
+    // Operator[]
+    std::vector<float>& Matrix::operator[](int i) {
+        return data[i];
+    }
+
+    // operator[] (const version)
+    const std::vector<float>& Matrix::operator[](int i) const {
+        return data[i];
+    }
 
     // Method for the product between matrices
     Matrix Matrix::operator*(const Matrix& other) const {
@@ -43,6 +53,32 @@ namespace Geometry {
             }
         }
         return result;
+    }
+
+    Matrix& Matrix::operator=(const Matrix& other) {
+        if (this == &other)
+            return *this;
+        data.clear();
+        data.resize(other.rows, std::vector<float>(other.cols));
+
+        rows = other.rows;
+        cols = other.cols;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                data[i][j] = other.data[i][j];
+            }
+        }
+        return *this;
+    }
+
+    // Create a new transposed matrix
+    Matrix Matrix::transpose() const {
+        Matrix transposed(cols, rows); 
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) 
+                transposed.data[j][i] = data[i][j]; 
+        }
+        return transposed; // Restituisce la nuova matrice trasposta
     }
 
     // Conversion in a Covariance matrix
@@ -80,5 +116,93 @@ namespace Geometry {
         this->set(1, 0, e01 * oon);
         this->set(2, 0, e02 * oon);
         this->set(2, 1, e12 * oon);
+    }
+    // Support function
+    // 2-by-2 symmetric Schur decomposition. 
+    // Given an n-by-n symmetric matrix and indeces p, q
+    // cuch that 1 <= p < q <= n, computes a sine-cosine
+    // pair (s, c) that will serve to form a Jacobi rotation matrix.
+    void Matrix::sym_schur_2x2(Matrix mat, int p, int q, float& c, float& s) {
+        if(abs(mat.get(p, q)) > 0.0001f) {
+            float r = (mat.get(q, q) - mat.get(p, p)) / (2.0f * mat.get(p, q));
+            float t;
+            if(r > 0.0f)
+                t = 1.0f / (r + sqrt(1.0f + r*r));
+            else
+                t = -1.0f / (-r + sqrt(1.0f + r*r));
+            c = 1.0f / (r + sqrt(1.0f + r*r));
+            s = t * c;
+        } else {
+            c = 1.0f;
+            s = 0.0f;
+        }
+    }
+
+    // Computes the eigenvectors and eigenvalues of the symmetric matricx A using
+    // the classic Jacobi method od iteratively updating A as A = J^T * A * J,
+    // where J = J(p, q, theta) is the Jacobi rotation matrix
+    //
+    // On exit, V will contain the eigenvectors, and the diagonal elements
+    // of A are corresponding eigenvalues
+    void Matrix::jacobi(Matrix& A, Matrix& V) {
+        int i, j, n, p, q;
+        float prevoff, c, s;
+        Matrix J, b, t;
+
+        // Initialize V to identify matrix
+        for(i = 0; i < 3; ++i) {
+            V[i][0] = V[i][1] = V[i][2] = 0.0f;
+            V[i][i] = 1;
+        }
+
+        // Reapeat for some maximum number of iterations
+        const int MAX_ITERATIONS = 50;
+        for(n = 0; n < MAX_ITERATIONS; ++n) {
+            // Find largest off-diagonal absolute element a[p][q]
+            p = 0;
+            q = 1;
+            for(i = 0; i < 3; ++i) {
+                for(j = 0; j < 3; ++j) {
+                    if(i == j) 
+                        continue;
+                    if(abs(A[i][j]) > abs(A[p][q])) {
+                        p = i;
+                        q = j;
+                    }
+                }
+            }
+
+            // Compute the Jacobi rotation matrix J(p, q, theta)
+            sym_schur_2x2(A, p, q, c, s);
+            for(i = 0; i < 3; ++i) {
+                J[i][0] = J[i][1] = J[i][2] = 0.0f;
+                J[i][i] = 1.0f;
+            }
+            J[p][p] = c;
+            J[p][q] = s;
+            J[q][p] = -s;
+            J[q][q] = c;
+
+            // Cumulate rotations into whta will contain the eigenvectors
+            V = V * J;
+
+            // Make 'a' more diagonal, until just eigenvalues remain on diagonal
+            A = (J.transpose() * A) * J;
+
+            // Compute 'norm' of off-diagonal elements
+            float off = 0.0f;
+            for(i = 0; i < 3; ++i) {
+                for(j = 0; j < 3; ++j) {
+                    if(i == j)
+                        continue;
+                    off += A[i][j] * A[i][j];
+                }
+            }
+            // Stop when norm no longer decreasing
+            if(n > 2 && off >= prevoff)
+                return;
+
+            prevoff = off;
+        }
     }
 }

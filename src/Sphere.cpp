@@ -2,7 +2,7 @@
 #include <cmath>
 
 namespace Geometry {
-    Sphere::Sphere(Point3D c, float r = 0) {
+    Sphere::Sphere(Point3D c, float r) {
         this->center = c;
         this->radius = r;
     }
