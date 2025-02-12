@@ -82,9 +82,12 @@ namespace Geometry {
     }
 
 
-    // Scalar product
+    // Scalar/Dot product 
     float Point3D::operator*(const Point3D& other) const {
         return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1] + this->coordinates[2] * other.coordinates[2];
+    }
+    Point3D Point3D::operator*(float scalar) const {
+        return Point3D(this->coordinates[0] * scalar, this->coordinates[1] * scalar, this->coordinates[2] * scalar);
     }
     Point3D& Point3D::operator*=(float scalar) {
         this->coordinates[0] *= scalar;

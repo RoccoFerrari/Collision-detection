@@ -1,6 +1,7 @@
 #ifndef AXIS_ALIGNED_BOUNDING_BOX_HH
 #define AXIS_ALIGNED_BOUNDING_BOX_HH
 #include "Point3D.hh"
+#include "Matrix.hh"
 #include <vector>
 
 /*
@@ -25,7 +26,7 @@
 
             // Transform AABB A (this) by the matrix M and traslation T,
             // find maximum extends, and store result into AABB B (other)
-            void update_AABB(float M[3][3], float T[3], AABB& other);
+            void update_AABB(Matrix M, float T[3], AABB& other);
 
         };
     }

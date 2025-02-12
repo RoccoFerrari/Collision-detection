@@ -78,17 +78,17 @@ namespace Geometry {
             for (int j = 0; j < cols; ++j) 
                 transposed.data[j][i] = data[i][j]; 
         }
-        return transposed; // Restituisce la nuova matrice trasposta
+        return transposed;
     }
 
-    // Conversion in a Covariance matrix
+    // Creation of a covariance matrix
     void Matrix::covariance_matrix(std::vector<Point3D> points) {
         int n = points.size();
         float oon = 1.0f / (float)n;
         Point3D c = Point3D(0.0f, 0.0f, 0.0f);
         float e00, e11, e22, e01, e02, e12;
 
-        // Compute the center of mass (centroid) of the points
+        // Compute the center of mass (centroid) of the points (sample average)
         for(int i = 0; i < n; ++i)
             c += points[i];
         c *= oon;
@@ -122,15 +122,15 @@ namespace Geometry {
     // Given an n-by-n symmetric matrix and indeces p, q
     // cuch that 1 <= p < q <= n, computes a sine-cosine
     // pair (s, c) that will serve to form a Jacobi rotation matrix.
-    void Matrix::sym_schur_2x2(Matrix mat, int p, int q, float& c, float& s) {
-        if(abs(mat.get(p, q)) > 0.0001f) {
-            float r = (mat.get(q, q) - mat.get(p, p)) / (2.0f * mat.get(p, q));
+    void Matrix::sym_schur_2x2(int p, int q, float& c, float& s) {
+        if(abs(this->get(p, q)) > 0.0001f) {
+            float r = (this->get(q, q) - this->get(p, p)) / (2.0f * this->get(p, q));
             float t;
-            if(r > 0.0f)
+            if(r >= 0.0f)
                 t = 1.0f / (r + sqrt(1.0f + r*r));
             else
                 t = -1.0f / (-r + sqrt(1.0f + r*r));
-            c = 1.0f / (r + sqrt(1.0f + r*r));
+            c = 1.0f / sqrt(1.0f + t*t);
             s = t * c;
         } else {
             c = 1.0f;
@@ -152,7 +152,7 @@ namespace Geometry {
         // Initialize V to identify matrix
         for(i = 0; i < 3; ++i) {
             V[i][0] = V[i][1] = V[i][2] = 0.0f;
-            V[i][i] = 1;
+            V[i][i] = 1.0f;
         }
 
         // Reapeat for some maximum number of iterations
@@ -173,7 +173,7 @@ namespace Geometry {
             }
 
             // Compute the Jacobi rotation matrix J(p, q, theta)
-            sym_schur_2x2(A, p, q, c, s);
+            A.sym_schur_2x2(p, q, c, s);
             for(i = 0; i < 3; ++i) {
                 J[i][0] = J[i][1] = J[i][2] = 0.0f;
                 J[i][i] = 1.0f;

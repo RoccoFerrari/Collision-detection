@@ -10,12 +10,12 @@ namespace Geometry {
         int rows;
         int cols;
 
-        // Support function
+        // Support functions
         // 2-by-2 symmetric Schur decomposition. 
         // Given an n-by-n symmetric matrix and indeces p, q
         // cuch that 1 <= p < q <= n, computes a sine-cosine
         // pair (s, c) that will serve to form a Jacobi rotation matrix.
-        static void sym_schur_2x2(Matrix mat, int p, int q, float& c, float& s);
+        void sym_schur_2x2(int p, int q, float& c, float& s);
     public:
         // Constructor: initialize a matrix with only 0s and a defined size
         Matrix(int r = 3, int c = 3);
@@ -39,7 +39,7 @@ namespace Geometry {
         // Create a new transposed matrix
         Matrix transpose() const ;
 
-        // Conversion in a Covariance matrix
+        // Creation of a covariance matrix
         void covariance_matrix(std::vector<Point3D> points);
 
         // Computes the eigenvectors and eigenvalues of the symmetric matricx A using

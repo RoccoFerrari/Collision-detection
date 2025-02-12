@@ -41,7 +41,7 @@ namespace Geometry {
     }
     // Transform AABB A (this) by the matrix M and traslation T,
     // find maximum extends, and store result into AABB B (other)
-    void AABB::update_AABB(float M[3][3], float T[3], AABB& other) {
+    void AABB::update_AABB(Matrix M, float T[3], AABB& other) {
         for(int i = 0; i < 3; ++i) {
             other.center[i] = T[i];
             other.radius[i] = 0.0f;

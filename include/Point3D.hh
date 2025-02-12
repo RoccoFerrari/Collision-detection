@@ -36,6 +36,7 @@ namespace Geometry {
 
         // Scalar product
         float operator*(const Point3D& other) const;
+        Point3D operator*(float scalar) const;
         Point3D& operator*=(float scalar);
         
         // Cross product
