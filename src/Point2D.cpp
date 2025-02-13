@@ -66,6 +66,12 @@ namespace Geometry {
         default: throw std::out_of_range("Index out of range");
         }
     }
+    Point2D Point2D::operator/(float scalar) const {
+        return Point2D(this->coordinates[0] / scalar, this->coordinates[1] / scalar);
+    }
+    Point2D Point2D::operator*(float scalar) const {
+        return Point2D(this->coordinates[0] * scalar, this->coordinates[1] * scalar);
+    }
     // Scalar product
     float Point2D::operator*(const Point2D& other) const {
         return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1];

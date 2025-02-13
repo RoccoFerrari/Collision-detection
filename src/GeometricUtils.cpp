@@ -1,5 +1,6 @@
 #include "../include/GeometricUtils.hh"
 #include <limits>
+#include <cmath>
 
 namespace Geometry {
     void GeometryUtils::extreme_points_along_direction(Point3D& dir, std::vector<Point3D> points, int *imin, int *imax) {
@@ -59,5 +60,51 @@ namespace Geometry {
             max = maxz;
             min = minz;
         }
+    }
+    // This methods find the minimum area rectangle in the XY plain containing the points
+    float GeometryUtils::min_area_rectangle(std::vector<Point2D> pt, Point2D& c, std::vector<Point2D> u) {
+        int n = pt.size();
+        float minArea = std::numeric_limits<float>::max();
+
+        // Loop through all edges; j trails i by 1, modulo n
+        for(int i = 0, j = n - 1; i < n; j = i, ++i) {
+            // Get current edge e0 (e0x, e0y), normalized
+            Point2D e0 = pt[i] - pt[j];
+            float dx = pt[i].getX() - pt[j].getX();
+            float dy = pt[i].getY() - pt[j].getY();
+            float dist = sqrt(dx * dx + dy * dy);
+            e0 = e0 / dist;
+
+            // Get an axis e1 orthogonal to edge e0
+            Point2D e1 = Point2D(-e0.getY(), e0.getX()); // = Perp2D(e0)
+
+            // Loop through all points to get maximum extends
+            float min0 = 0.0f, min1 = 0.0f, max0 = 0.0f, max1 = 0.0f;
+            for(int k = 0; k < n; ++k) {
+                // Project points onto axes e0 and e1 and keep track
+                // of minimum and maximum values along both axes
+                Point2D d = pt[k] - pt[j];
+                float dot = d * e0;
+                if(dot < min0)
+                    min0 = dot;
+                if(dot > max0)
+                    max0 = dot;
+                dot = d * e1;
+                if(dot < min1)
+                    min1 = dot;
+                if(dot > max1)
+                    max1 = dot;
+            }
+            float area = (max0 - min0) * (max1 - min1);
+
+            // If best so far, remember area, center and axes
+            if(area < minArea) {
+                minArea = area;
+                c = pt[j] + (e0 * (min0 + max0) + e1 * (min1 + max1)) * 0.5f;
+                u[0] = e0;
+                u[1] = e1;
+            }
+        }
+        return minArea;
     }
 }

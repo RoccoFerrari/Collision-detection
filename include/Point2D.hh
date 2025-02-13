@@ -30,6 +30,11 @@ namespace Geometry {
         // Operator[]
         float& operator[](int index);
         const float& operator[](int index) const;
+        
+        // Operator Point2D / float
+        Point2D operator/(float scalar) const ;
+        // Operator Point2D * float
+        Point2D operator*(float scalar) const ;
         // Scalar product
         float operator*(const Point2D& other) const;
         // Cross product
