@@ -2,7 +2,7 @@
 #define TRIANGLE_HH
 
 #include "Point3D.hh"
-#include "Shape2D.hh"
+#include "data_structures/Shape2D.hh"
 
 namespace Geometry {
     class Triangle : public Shape2D {

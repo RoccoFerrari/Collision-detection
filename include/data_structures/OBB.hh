@@ -1,6 +1,6 @@
 #ifndef ORIENTED_BOUNDING_BOX_HH
 #define ORIENTED_BOUNDING_BOX_HH
-#include "Point3D.hh"
+#include "../Point3D.hh"
 
 /*
     OBB (Oriented Bounding Box), is a fitting-figure box that allows you to optimize collisions by eliminating impossible ones and    testing only those whose OBB of the figures are intersected. The differences between AABB and OBB are that OBBs are oriented dipending

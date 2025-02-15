@@ -1,4 +1,4 @@
-#include "../include/Sphere.hh"
+#include "../include/data_structures/Sphere.hh"
 #include "../include/Matrix.hh"
 #include "../include/GeometricUtils.hh"
 #include <cmath>

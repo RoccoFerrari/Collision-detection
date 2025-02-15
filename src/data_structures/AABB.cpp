@@ -1,4 +1,4 @@
-#include "../include/AABB.hh"
+#include "../include/data_structures/AABB.hh"
 #include <cmath>
 #include <stdexcept>
 

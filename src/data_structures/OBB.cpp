@@ -1,4 +1,4 @@
-#include "../include/OBB.hh"
+#include "../include/data_structures/OBB.hh"
 #include "../include/Matrix.hh"
 #include <cmath>
 #include <limits>

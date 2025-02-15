@@ -1,7 +1,7 @@
 #ifndef AXIS_ALIGNED_BOUNDING_BOX_HH
 #define AXIS_ALIGNED_BOUNDING_BOX_HH
-#include "Point3D.hh"
-#include "Matrix.hh"
+#include "../Point3D.hh"
+#include "../Matrix.hh"
 #include <vector>
 
 /*
@@ -15,7 +15,7 @@
             float radius[3]; // radius extends (rx, ry, rz)
         public:
             // Constructor
-            AABB(Point3D c, float x = 0, float y = 0, float z = 0);
+            AABB(Point3D c = {}, float x = 0, float y = 0, float z = 0);
 
             // Operator[]
             float& operator[](int index);

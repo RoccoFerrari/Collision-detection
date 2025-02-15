@@ -1,7 +1,7 @@
 #ifndef MATRIX_HH
 #define MATRIX_HH
 #include <vector>
-#include "../include/Point3D.hh"
+#include "Point3D.hh"
 
 namespace Geometry {
     class Matrix {

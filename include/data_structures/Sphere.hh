@@ -1,6 +1,6 @@
 #ifndef SPHERE_HH
 #define SPHERE_HH
-#include "Point3D.hh"
+#include "../Point3D.hh"
 #include <vector>
 
 namespace Geometry {
