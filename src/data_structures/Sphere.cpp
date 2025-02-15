@@ -9,14 +9,14 @@ namespace Geometry {
         this->radius = r;
     }
 
-    Point3D Sphere::getC() const {
+    Point3D Sphere::getCenter() const {
         return this->center;
     }
-    float Sphere::getR() const {
+    float Sphere::getRadius() const {
         return this->radius;
     }
 
-    bool Sphere::sphere_sphere_intersection(const Sphere& other) const {
+    bool Sphere::test_sphere_sphere_intersection(const Sphere& other) const {
         Point3D d = this->center - other.center;
         float dist2 = d * d;
         // Spheres intersect if squared distance is less than squared sum of radii

@@ -20,10 +20,10 @@ namespace Geometry {
     
         Sphere(Point3D c = {}, float r = 1);
 
-        Point3D getC() const ;
-        float getR() const ;
+        Point3D getCenter() const ;
+        float getRadius() const ;
 
-        bool sphere_sphere_intersection(const Sphere& other) const ;
+        bool test_sphere_sphere_intersection(const Sphere& other) const ;
 
         // Ritter sphere is an approximate bounding sphere. It is not optimal ma quite inexpensive.
         void ritter_sphere(std::vector<Point3D> points);

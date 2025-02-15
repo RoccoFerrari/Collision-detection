@@ -30,7 +30,7 @@ namespace Geometry {
         }
     }
 
-    bool AABB::test_AABB_intersection(const AABB& other) const {
+    bool AABB::test_AABB_AABB_intersection(const AABB& other) const {
         if(abs(this->center.getX() - other.center.getX()) > (this->radius[0] + other.radius[0]))
             return false;
         if(abs(this->center.getY() - other.center.getY()) > (this->radius[1] + other.radius[1]))

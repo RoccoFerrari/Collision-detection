@@ -22,7 +22,7 @@
             const float& operator[](int index) const;
 
             // Test that evaluates the instersaction between two AABB
-            bool test_AABB_intersection(const AABB& other) const ;
+            bool test_AABB_AABB_intersection(const AABB& other) const ;
 
             // Transform AABB A (this) by the matrix M and traslation T,
             // find maximum extends, and store result into AABB B (other)

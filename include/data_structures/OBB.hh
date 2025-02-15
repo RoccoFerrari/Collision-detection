@@ -16,7 +16,7 @@ namespace Geometry {
     public:
         OBB(Point3D center = {}, Point3D local_x = {}, Point3D local_y = {}, Point3D local_z = {}, Point3D halfwidth = {1,1,1});
 
-        bool test_OBB_intersection(OBB& other) const ;
+        bool test_OBB_OBB_intersection(const OBB& other) const ;
     };
 }
 

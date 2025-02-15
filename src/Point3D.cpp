@@ -56,6 +56,12 @@ namespace Geometry {
         float newZ = this->coordinates[2] - other.coordinates[2];
         return Point3D(newX, newY, newZ);
     }
+    Point3D Point3D::operator-(float scalar) const {
+        float newX = this->coordinates[0] - scalar;
+        float newY = this->coordinates[1] - scalar;
+        float newZ = this->coordinates[2] - scalar;
+        return Point3D(newX, newY, newZ);
+    }
     void Point3D::operator+=(const Point3D& other) {
         this->coordinates[0] += other.coordinates[0];
         this->coordinates[1] += other.coordinates[1];

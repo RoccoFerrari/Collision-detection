@@ -28,6 +28,7 @@ namespace Geometry {
         // Sum
         Point3D operator+(const Point3D& other) const;
         Point3D operator-(const Point3D& other) const;
+        Point3D operator-(float scalar) const;
         void operator+=(const Point3D& other);
 
         // Operator[]
