@@ -17,7 +17,7 @@ namespace Geometry {
         // pair (s, c) that will serve to form a Jacobi rotation matrix.
         void sym_schur_2x2(int p, int q, float& c, float& s);
     public:
-        // Constructor: initialize a matrix with only 0s and a defined size
+        // Constructor: initialize a matrix with only 0s and a defined size (3x3)
         Matrix(int r = 3, int c = 3);
 
         // Setter method
