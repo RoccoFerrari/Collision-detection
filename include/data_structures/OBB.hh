@@ -1,6 +1,7 @@
 #ifndef ORIENTED_BOUNDING_BOX_HH
 #define ORIENTED_BOUNDING_BOX_HH
 #include "../Point3D.hh"
+#include <array>
 
 /*
     OBB (Oriented Bounding Box), is a fitting-figure box that allows you to optimize collisions by eliminating impossible ones and    testing only those whose OBB of the figures are intersected. The differences between AABB and OBB are that OBBs are oriented dipending
@@ -11,7 +12,7 @@ namespace Geometry {
     class OBB {
     private:
         Point3D center;
-        Point3D local_axes[3]; // Local x, y, z-axes
+        std::array<Point3D, 3> local_axes; // Local x, y, z-axes
         Point3D halfwidth;  // Positive halfwidth extends of OBB along each axis
     public:
         OBB(Point3D center = {}, Point3D local_x = {}, Point3D local_y = {}, Point3D local_z = {}, Point3D halfwidth = {1,1,1});

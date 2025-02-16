@@ -3,6 +3,7 @@
 #include "../Point3D.hh"
 #include "../Matrix.hh"
 #include <vector>
+#include <array>
 
 /*
     AABB (Axis-Aligned Bounding Box), is a fitting-figure box that allows you to optimize collisions by eliminating impossible ones and    testing only those whose AABB of the figures are intersected
@@ -12,7 +13,7 @@
         class AABB {
         private:
             Point3D center; // center point of AABB
-            float radius[3]; // radius extends (rx, ry, rz)
+            std::array<float, 3> radius; // radius extends (rx, ry, rz)
         public:
             // Constructor
             AABB(Point3D c = {}, float x = 0, float y = 0, float z = 0);
