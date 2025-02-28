@@ -54,7 +54,7 @@ namespace Geometry {
         QuickHull::quick_hull_recursive(c, b, rightSet, hull);
     }
 
-    std::vector<Point2D> QuickHull::quick_hull(std::vector<Point2D> points) {
+    std::vector<Point2D> QuickHull::quick_hull(const std::vector<Point2D>& points) {
         int n = points.size();
         if (n <= 0) // Handle n = 0
             return {}; // Return empty vector
