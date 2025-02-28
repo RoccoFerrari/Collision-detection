@@ -44,7 +44,7 @@ This library provides a robust and optimized solution for detecting collisions b
 
 3.  Include the library in your project and start detecting collisions!
 
-### Example
+### Just an easy example
 
 ```c++
 #include <vector>
