@@ -29,7 +29,7 @@ This library provides a robust and optimized solution for detecting collisions b
 1.  Clone the repository:
 
     ```bash
-    git clone [https://github.com/yourusername/collision-detection.git](https://www.google.com/search?q=https://github.com/yourusername/collision-detection.git)
+    git clone [https://github.com/RoccoFerrari/Collision-detection.git]
     ```
 
 2.  Build the library using CMake (recommended):
