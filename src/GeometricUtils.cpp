@@ -3,76 +3,123 @@
 #include <cmath>
 
 namespace Geometry {
-    void GeometryUtils::extreme_points_along_direction(Point3D& dir, std::vector<Point3D> points, int *imin, int *imax) {
+    template <typename Iterator>
+    void GeometryUtils::extreme_points_along_direction(const Point3D& dir, Iterator begin, Iterator end, int* imin, int* imax) {
+        using ValueType = typename std::iterator_traits<Iterator>::value_type;
+        using DifferenceType = typename std::iterator_traits<Iterator>::difference_type;
 
-        int n = points.size();
+        auto it = begin;
+        if (it == end) // Empty container
+            return;
+
+        // int n = points.size(); // Questa riga non è necessaria nella versione con iteratori
         float maxproj = -std::numeric_limits<float>::max();
         float minproj = std::numeric_limits<float>::max();
+        DifferenceType current_imin = 0;
+        DifferenceType current_imax = 0;
+        DifferenceType current_index = 0;
 
-        for(int i = 0; i < n; ++i) {
+        for (; it != end; ++it, ++current_index) {
             // Project vector from origin to poin onto direction vector
-            float proj = points[i] * dir;
+            float proj = (*it) * dir;
             // Keep track of least and most distant point(s) along direction vector
             if(proj > maxproj) {
                 maxproj = proj;
-                *imax = i;
+                current_imax = current_index;
             }
             if(proj < minproj) {
                 minproj = proj;
-                *imin = i;
+                current_imin = current_index;
             }
         }
+        if (imin) *imin = current_imin;
+        if (imax) *imax = current_imax;
     }
     // Compute indices to the most separated points of the six points
     // defining the AABB encompassing the point set. Return these as min and max.
-    void GeometryUtils::most_separated_points_on_AABB(int& min, int& max, std::vector<Point3D> points) {
-        int n = points.size();
-        int minx = 0, maxx = 0, miny = 0, maxy = 0, minz = 0, maxz = 0;
+    template <typename Iterator>
+    void GeometryUtils::most_separated_points_on_AABB(int& min, int& max, Iterator begin, Iterator end) {
+        using ValueType = typename std::iterator_traits<Iterator>::value_type;
+        using DifferenceType = typename std::iterator_traits<Iterator>::difference_type;
+
+        auto it = begin;
+        if (it == nullptr)
+            return; // Empty container
+
+        DifferenceType current_index = 0;
+        DifferenceType minx_idx = 0, maxx_idx = 0, miny_idx = 0, maxy_idx = 0, minz_idx = 0, maxz_idx = 0;
+        ValueType minx_point = *it, maxx_point = *it, miny_point = *it, maxy_point = *it, minz_point = *it, maxz_point = *it;
         // First find most extreme points along principal axes
-        for(int i = 0; i < n; ++i) {
-            if(points[i].getX() < points[minx].getX())
-                minx = i;
-            if(points[i].getX() > points[maxx].getX())
-                maxx = i;
-            if(points[i].getY() < points[miny].getY())
-                miny = i;
-            if(points[i].getY() > points[maxy].getY())
-                maxy = i;
-            if(points[i].getZ() < points[minz].getZ())
-                minz = i;
-            if(points[i].getZ() > points[maxz].getZ())
-                maxz = i;
+        for(; it != end; it++) {
+            if(it->getX() < minx_point.getX()) {
+                minx_point = *it;
+                minx_idx = current_index;
+            }
+            if(it->.getX() > maxx_point.getX()) {
+                maxx_point = *it;
+                maxx_idx = current_index;
+            }
+            if(it->.getY() < miny_point.getY()) {
+                miny_point = *it;
+                miny_idx = current_index;
+            }
+            if(it->.getY() > maxy_point.getY()) {
+                maxy_point = *it;
+                maxy_idx = current_index;
+            }
+            if(it->.getZ() < minz_point.getZ()) {
+                minz_point = *it;
+                minz_idx = current_index;
+            }
+            if(it->.getZ() > maxz_point.getZ()) {
+                maxz_point = *it;
+                maxz_idx = current_index;
+            }
         }
 
         // Compute the squared distances for the three pairs of points
-        float dist2x = (points[maxx] - points[minx]) * (points[maxx] - points[minx]);
-        float dist2y = (points[maxy] - points[miny]) * (points[maxy] - points[miny]);
-        float dist2z = (points[maxz] - points[minz]) * (points[maxz] - points[minz]);
+        float dist2x = (maxx_point - minx_point) * (maxx_point - minx_point);
+        float dist2y = (maxy_point - miny_point) * (maxy_point - miny_point);
+        float dist2z = (maxz_point - minz_point) * (maxz_point - minz_point);
 
         // Pick the pair (min, max) of points most distant
-        min = minx;
-        max = maxx;
+        min = minx_idx;
+        max = maxx_idx;
         if(dist2y > dist2x && dist2y > dist2z) {
-            max = maxy;
-            min = miny;
+            max = maxy_idx;;
+            min = miny_idx;
         }
         if(dist2z > dist2x && dist2z > dist2y) {
-            max = maxz;
-            min = minz;
+            max = maxz_idx;
+            min = minz_idx;
         }
     }
-    // This methods find the minimum area rectangle in the XY plain containing the points
-    float GeometryUtils::min_area_rectangle(std::vector<Point2D> pt, Point2D& c, std::vector<Point2D> u) {
-        int n = pt.size();
+
+    // This method finds the minimum area rectangle in the XY plain containing the points.
+    // It returns the minimun area and a vector
+    template <typename Iterator>
+    float GeometryUtils::min_area_rectangle(Iterator begin, Iterator end, Point2D& c, std::pair<Point2D, Point2D> out) {
+        using ValueType = typename std::iterator_traits<InputIterator>::value_type;
+
+        auto it_begin = begin;
+        auto it_end = end;
+        auto n = std::distance(it_begin, it_end);
         float minArea = std::numeric_limits<float>::max();
 
+        if (n < 3) 
+            return 0.0f; // No rectangle with less than 3 points
+        
+
         // Loop through all edges; j trails i by 1, modulo n
-        for(int i = 0, j = n - 1; i < n; j = i, ++i) {
+        for(long long i = 0, j = n - 1; i < n; j = i, ++i) {
+            auto it_i = std::next(it_begin, i);
+            auto it_j = (i == 0) ? std::prev(it_end) : std::prev(it_i);
+            
             // Get current edge e0 (e0x, e0y), normalized
-            Point2D e0 = pt[i] - pt[j];
-            float dx = pt[i].getX() - pt[j].getX();
-            float dy = pt[i].getY() - pt[j].getY();
-            float dist = sqrt(dx * dx + dy * dy);
+            Point2D e0 = *it_i - *it_j;
+            float dx = e0.getX();
+            float dy = e0.getY();
+            float dist = std::sqrt(dx * dx + dy * dy);
             e0 = e0 / dist;
 
             // Get an axis e1 orthogonal to edge e0
@@ -80,10 +127,10 @@ namespace Geometry {
 
             // Loop through all points to get maximum extends
             float min0 = 0.0f, min1 = 0.0f, max0 = 0.0f, max1 = 0.0f;
-            for(int k = 0; k < n; ++k) {
+            for(auto it_k = it_begin; it_k != it_end; ++it_k) {
                 // Project points onto axes e0 and e1 and keep track
                 // of minimum and maximum values along both axes
-                Point2D d = pt[k] - pt[j];
+                Point2D d = *it_k - *it_j;
                 float dot = d * e0;
                 if(dot < min0)
                     min0 = dot;
@@ -100,9 +147,9 @@ namespace Geometry {
             // If best so far, remember area, center and axes
             if(area < minArea) {
                 minArea = area;
-                c = pt[j] + (e0 * (min0 + max0) + e1 * (min1 + max1)) * 0.5f;
-                u[0] = e0;
-                u[1] = e1;
+                c = *it_j + (e0 * (min0 + max0) + e1 * (min1 + max1)) * 0.5f;
+                out.first = e0;
+                out.second = e1;
             }
         }
         return minArea;

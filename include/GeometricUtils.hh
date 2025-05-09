@@ -1,6 +1,6 @@
 #ifndef GEOMETRIC_UTILS_HH
 #define GEOMETRIC_UTILS_HH
-#include <vector>
+#include <iterator> 
 #include "Point3D.hh"
 #include "Point2D.hh"
 #include "QuickHull.hh"
@@ -13,15 +13,19 @@ namespace Geometry {
         // Support function: clamp n to lie within the reange [min, max]
         static float clamp(const float n, const float min, const float max);
     public:
-        // Method that returns indice max into pt vector of the most distante point along the direction dir
+        // Method that returns index max into pt vector of the most distant point along the direction dir
         // Usable for AABB's creation
-        static void extreme_points_along_direction(Point3D& dir, std::vector<Point3D> points, int *imin, int *imax);
+        template <typename Iterator>
+        static void extreme_points_along_direction(const Point3D& dir, Iterator begin, Iterator end, int* imin, int* imax);
+
         // Compute indices to the most separated points of the six points
         // defining the AABB encompassing the point set. Return these as min and max.
-        static void most_separated_points_on_AABB(int& min, int& max, std::vector<Point3D> points);
+        template <typename Iterator>
+        static void most_separated_points_on_AABB(int& min, int& max, Iterator begin, Iterator end);
 
         // This methods find the minimum area rectangle in the XY plain containing the points
-        static float min_area_rectangle(std::vector<Point2D> pt, Point2D& c, std::vector<Point2D> u);
+        template <typename Iterator>
+        static float min_area_rectangle(Iterator begin, Iterator end, Point2D& c, std::pair<Point2D, Point2D> out);
 
         // Returns the squared distance between point c and segment ab
         static float sq_dist_point_segment(Point3D a, Point3D b, Point3D c);
