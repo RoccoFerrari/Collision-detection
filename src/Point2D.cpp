@@ -19,6 +19,11 @@ namespace Geometry {
         return *this;
     }
 
+    // Operator ==
+    bool Point2D::operator==(const Point2D& other) {
+        return (this->coordinates[0] == other.coordinates[0]) && (this->coordinates[1] == other.coordinates[1]);
+    }
+
     // Getter methods
     float Point2D::getX() const {
         return this->coordinates[0];

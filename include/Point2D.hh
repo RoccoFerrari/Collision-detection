@@ -15,6 +15,9 @@ namespace Geometry {
         // Operator =
         Point2D& operator=(const Point2D& other);
 
+        // Operator ==
+        bool operator==(const Point2D& other);
+
         // Getter methods
         float getX() const;
         float getY() const;
