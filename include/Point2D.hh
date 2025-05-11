@@ -1,11 +1,12 @@
 // Guard against multiple insertions
 #ifndef POINT_2D_HH
 #define POINT_2D_HH
+#include <array>
 
 namespace Geometry {
     class Point2D {
     private:
-        float coordinates[2];
+        std::array<float, 2> coordinates;
     public:
         // Constructors
         Point2D(float x = 0.0, float y = 0.0);
@@ -31,7 +32,7 @@ namespace Geometry {
         Point2D operator-(const Point2D& other) const;
         void operator+=(const Point2D& other);
         // Operator[]
-        float& operator[](int index);
+        float operator[](int index);
         const float& operator[](int index) const;
         
         // Operator Point2D / float

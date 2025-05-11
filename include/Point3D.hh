@@ -1,11 +1,12 @@
 // Guard against multiple insertions
 #ifndef POINT_3D_HH
 #define POINT_3D_HH
+#include "Point2D.hh"
 
 namespace Geometry {
-    class Point3D {
+    class Point3D : Point2D{
     private:
-        float coordinates[3];
+        float coordinate_z;
     public:
         // Constructors
         Point3D(float x = 0.0, float y = 0.0, float z = 0.0);
@@ -16,12 +17,8 @@ namespace Geometry {
         Point3D& operator=(const Point3D& other);
 
         // Getter methods
-        float getX() const;
-        float getY() const;
         float getZ() const;
         // Setter methods
-        void setX(float x);
-        void setY(float y);
         void setZ(float z);
 
         // Operation between Dots
@@ -32,7 +29,7 @@ namespace Geometry {
         void operator+=(const Point3D& other);
 
         // Operator[]
-        float& operator[](int index);
+        float operator[](int index);
         const float& operator[](int index) const;
 
         // Scalar product

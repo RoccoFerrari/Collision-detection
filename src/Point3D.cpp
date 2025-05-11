@@ -3,102 +3,87 @@
 
 namespace Geometry {
     // Constructors
-    Point3D::Point3D(float x, float y, float z) {
-        this->coordinates[0] = x;
-        this->coordinates[1] = y;
-        this->coordinates[2] = z;
-    }
+    Point3D::Point3D(float x, float y, float z) : Point2D(x, y), coordinate_z(z) {}
+
     Point3D::Point3D(const Point3D& other) {
-        this->coordinates[0] = other.coordinates[0];
-        this->coordinates[1] = other.coordinates[1];
-        this->coordinates[2] = other.coordinates[2];
+        this->setX(other.getX());
+        this->setY(other.getY());
+        this->setZ(other.getZ());
     }
 
     // Operator =
     Point3D& Point3D::operator=(const Point3D& other) {
-        this->coordinates[0] = other.coordinates[0];
-        this->coordinates[1] = other.coordinates[1];
-        this->coordinates[2] = other.coordinates[2];
+        this->setX(other.getX());
+        this->setY(other.getY());
+        this->setZ(other.getZ());
         return *this;
     }
 
     // Getter methods
-    float Point3D::getX() const {
-        return this->coordinates[0];
-    }
-    float Point3D::getY() const {
-        return this->coordinates[1];
-    }
     float Point3D::getZ() const {
-        return this->coordinates[2];
+        return this->coordinate_z;
     }
     // Setter methods
-    void Point3D::setX(float x) {
-        this->coordinates[0] = x;
-    }
-    void Point3D::setY(float y) {
-        this->coordinates[1] = y;
-    }
     void Point3D::setZ(float z) {
-        this->coordinates[2] = z;
+        this->coordinate_z = z;
     }
 
     // Operation between Point3Ds
     Point3D Point3D::operator+(const Point3D& other) const {
-        float newX = this->coordinates[0] + other.coordinates[0];
-        float newY = this->coordinates[1] + other.coordinates[1];
-        float newZ = this->coordinates[2] + other.coordinates[2];
+        float newX = this->getX() + other.getX();
+        float newY = this->getY() + other.getY();
+        float newZ = this->getZ() + other.getZ();
         return Point3D(newX, newY, newZ);
     }
     Point3D Point3D::operator-(const Point3D& other) const {
-        float newX = this->coordinates[0] - other.coordinates[0];
-        float newY = this->coordinates[1] - other.coordinates[1];
-        float newZ = this->coordinates[2] - other.coordinates[2];
+        float newX = this->getX() - other.getX();
+        float newY = this->getY() - other.getY();
+        float newZ = this->getZ() - other.getZ();
         return Point3D(newX, newY, newZ);
     }
     Point3D Point3D::operator-(float scalar) const {
-        float newX = this->coordinates[0] - scalar;
-        float newY = this->coordinates[1] - scalar;
-        float newZ = this->coordinates[2] - scalar;
+        float newX = this->getX() - scalar;
+        float newY = this->getY() - scalar;
+        float newZ = this->getZ() - scalar;
         return Point3D(newX, newY, newZ);
     }
     void Point3D::operator+=(const Point3D& other) {
-        this->coordinates[0] += other.coordinates[0];
-        this->coordinates[1] += other.coordinates[1];
-        this->coordinates[2] += other.coordinates[2];
+        this->setX(other.getX() + this->getX());
+        this->setY(other.getY() + this->getY());
+        this->setZ(other.getZ() + this->getZ());
     }
     // Overloading operator[]
-    float& Point3D::operator[](int index) {
+    float Point3D::operator[](int index){
         switch (index) {
-        case 0: return coordinates[0];
-        case 1: return coordinates[1];
-        case 2: return coordinates[2];
-        default: throw std::out_of_range("Index out of range");
+            case 0: return this->getX();
+            case 1: return this->getY();
+            case 2: return this->getZ();
+            default: throw std::out_of_range("Index out of range");
         }
     }
 
     // Overloading operator[] - const version
     const float& Point3D::operator[](int index) const {
         switch (index) {
-        case 0: return coordinates[0];
-        case 1: return coordinates[1];
-        case 2: return coordinates[2];
-        default: throw std::out_of_range("Index out of range");
+            case 0: return this->getX();
+            case 1: return this->getY();
+            case 2: return this->getZ();
+            default: throw std::out_of_range("Index out of range");
         }
     }
 
 
     // Scalar/Dot product 
     float Point3D::operator*(const Point3D& other) const {
-        return this->coordinates[0] * other.coordinates[0] + this->coordinates[1] * other.coordinates[1] + this->coordinates[2] * other.coordinates[2];
+        return this->getX() * other.getX() + this->getY() * other.getY() + this->getZ() * other.getZ();
     }
     Point3D Point3D::operator*(float scalar) const {
-        return Point3D(this->coordinates[0] * scalar, this->coordinates[1] * scalar, this->coordinates[2] * scalar);
+        return Point3D(this->getX() * scalar, this->getY() * scalar, this->getZ() * scalar);
     }
     Point3D& Point3D::operator*=(float scalar) {
-        this->coordinates[0] *= scalar;
-        this->coordinates[1] *= scalar;
-        this->coordinates[2] *= scalar;
+        this->setX(scalar + this->getX());
+        this->setY(scalar + this->getY());
+        this->setZ(scalar + this->getZ());
         return *this;
     }
     // Cross product (vectorial product)
