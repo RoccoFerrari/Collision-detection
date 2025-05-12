@@ -3,7 +3,7 @@
 A powerful and efficient C++ library for handling virtual collisions between 2D and 3D objects.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/collision-detection.svg)](https://github.com/yourusername/collision-detection/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/RoccoFerrari/collision-detection.svg)](https://github.com/RoccoFerrari/collision-detection/stargazers)
 
 ## Overview
 
