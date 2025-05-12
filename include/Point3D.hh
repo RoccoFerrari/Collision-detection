@@ -12,8 +12,8 @@ namespace Geometry {
     class Point3D : public Point2D{
     private:
     /**
-     * @var coordinates.
      * @brief `std::array<float, 3>` three dimension array which represents X and Y coordinates.
+     * @param coordinate_z.
      */
         float coordinate_z;
     public:
@@ -144,7 +144,7 @@ namespace Geometry {
 
              a[0] = a[1];
              ```
-             * @param other Point3D object.
+             * @param index int value.
              * @return `float` value which represent the selected coordinate.
              */
             float& operator[](int index);

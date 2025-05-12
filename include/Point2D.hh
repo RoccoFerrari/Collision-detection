@@ -11,8 +11,8 @@ namespace Geometry {
     class Point2D {
     protected:
     /**
-     * @var coordinates.
      * @brief `std::array<float, 2>` two dimension array which represents X and Y coordinates.
+     * @param coordinates.
      */
         std::array<float, 2> coordinates;
     public:
@@ -169,7 +169,7 @@ namespace Geometry {
 
              a[0] = a[1];
              ```
-             * @param other Point2D object.
+             * @param index int value.
              * @return `float` value which represent the selected coordinate.
              */
             float operator[](int index);
@@ -182,7 +182,7 @@ namespace Geometry {
              float x = a[0];
              float y = a[1];
              ```
-             * @param other Point2D object.
+             * @param index int value.
              * @return `float` value which represent the selected coordinate.
              */
             const float& operator[](int index) const;

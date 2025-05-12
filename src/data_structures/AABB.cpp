@@ -1,6 +1,7 @@
 #include "../include/data_structures/AABB.hh"
 
 namespace Geometry {
+    
     AABB::AABB(Point3D c, float x, float y, float z) {
         this->center = c;
         this->radius[0] = x;
@@ -8,7 +9,6 @@ namespace Geometry {
         this->radius[2] = z;
     }
 
-    // Overloading operator[]
     float& AABB::operator[](int index) {
         switch (index) {
         case 0: return this->radius[0];
@@ -18,7 +18,6 @@ namespace Geometry {
         }
     }
 
-    // Overloading operator[] - const version
     const float& AABB::operator[](int index) const {
         switch (index) {
         case 0: return this->radius[0];
@@ -37,8 +36,7 @@ namespace Geometry {
             return false;
         return true;
     }
-    // Transform AABB A (this) by the matrix M and traslation T,
-    // find maximum extends, and store result into AABB B (other)
+
     void AABB::update_AABB(Matrix M, float T[3], AABB& other) {
         for(int i = 0; i < 3; ++i) {
             other.center[i] = T[i];
