@@ -1,6 +1,4 @@
 #include "../include/data_structures/AABB.hh"
-#include <cmath>
-#include <stdexcept>
 
 namespace Geometry {
     AABB::AABB(Point3D c, float x, float y, float z) {

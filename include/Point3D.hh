@@ -4,13 +4,14 @@
 #include "Point2D.hh"
 
 namespace Geometry {
-    class Point3D : Point2D{
+    class Point3D : public Point2D{
     private:
         float coordinate_z;
     public:
         // Constructors
         Point3D(float x = 0.0, float y = 0.0, float z = 0.0);
         Point3D(const Point3D& other);
+        Point3D(const Point2D& other, float z);
         ~Point3D() = default;
 
         // Operator =
@@ -29,7 +30,7 @@ namespace Geometry {
         void operator+=(const Point3D& other);
 
         // Operator[]
-        float operator[](int index);
+        float& operator[](int index);
         const float& operator[](int index) const;
 
         // Scalar product

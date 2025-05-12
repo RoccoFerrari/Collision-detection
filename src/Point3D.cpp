@@ -10,12 +10,18 @@ namespace Geometry {
         this->setY(other.getY());
         this->setZ(other.getZ());
     }
+    Point3D::Point3D(const Point2D& other, float z) : coordinate_z(z) {
+        this->setX(other.getX());
+        this->setY(other.getY());
+    }
 
     // Operator =
     Point3D& Point3D::operator=(const Point3D& other) {
-        this->setX(other.getX());
-        this->setY(other.getY());
-        this->setZ(other.getZ());
+        if(this != &other) {
+            this->setX(other.getX());
+            this->setY(other.getY());
+            this->setZ(other.getZ());
+        }
         return *this;
     }
 
@@ -53,11 +59,11 @@ namespace Geometry {
         this->setZ(other.getZ() + this->getZ());
     }
     // Overloading operator[]
-    float Point3D::operator[](int index){
+    float& Point3D::operator[](int index){
         switch (index) {
-            case 0: return this->getX();
-            case 1: return this->getY();
-            case 2: return this->getZ();
+            case 0: return this->coordinates[0];
+            case 1: return this->coordinates[1];
+            case 2: return this->coordinate_z;
             default: throw std::out_of_range("Index out of range");
         }
     }

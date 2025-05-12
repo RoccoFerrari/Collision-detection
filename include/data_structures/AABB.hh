@@ -2,8 +2,9 @@
 #define AXIS_ALIGNED_BOUNDING_BOX_HH
 #include "../Point3D.hh"
 #include "../Matrix.hh"
-#include <vector>
 #include <array>
+#include <cmath>
+#include <stdexcept>
 
 /*
     AABB (Axis-Aligned Bounding Box), is a fitting-figure box that allows you to optimize collisions by eliminating impossible ones and    testing only those whose AABB of the figures are intersected
