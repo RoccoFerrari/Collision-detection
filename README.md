@@ -62,11 +62,11 @@ int main() {
         (1,2),(2,3),(4,1),(4,3),(5,2),(3,2),
         (7,0),(1,3),(3,4)
     };
-    // Return a vector of Point2D that rapresent a hull of the given vector of Point2D
+    // Return a vector of Point2D that represent a hull of the given Point2D vector
     std::vector<Geometry::Point2D> res1;
     std::vector<Geometry::Point2D> res1;
 
-    res = Geometry::QuickHull::quick_hull(vec);
+    res1 = Geometry::QuickHull::quick_hull(vec);
     re2 = Geometry::QuickHull::quick_hull(lis);
 
     // res1 = res2
