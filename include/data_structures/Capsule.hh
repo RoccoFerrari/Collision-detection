@@ -48,12 +48,12 @@ namespace Geometry {
              * @param r radius.
              ```
              // Example:
-             Point3D P(9,8,7);
+             Point3D S(9,8,7);
+             Point3D E(5,6,7);
              AABB a;
-             AABB b (P); 
-             AABB c (P,1);
-             AABB d (P,1,2);
-             AABB e (P,1,2,3);
+             AABB b (S); 
+             AABB c (S,E);
+             AABB d (S,E,5);
              ```
              */
             Capsule(Point3D s = {}, Point3D e = {}, float r = 1);
