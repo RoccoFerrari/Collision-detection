@@ -93,6 +93,7 @@ namespace Geometry {
              * @return Returns Point2D object.
              */
             Point2D operator+(const Point2D& other) const;
+
             /**
              * @brief Overloading of the `operator-` operator. It accept a `Point2D` object as argument and returns a `Point2D` object. This method allows subtraction operations such as:
              ```
@@ -157,13 +158,14 @@ namespace Geometry {
              * @return none.
              */
             void operator+=(const Point2D& other);
+            
             /**
              * @brief Overloading of the `operator[]` operator (non-const variant). It accept a `int` value and returns a `float` value: the value `0` represents the x-coordinte while `1` represents the y-coordinate. This method allows index, read and (over)write operations such as:
              ```
              // Example:
              Point2D a(1,2);
-             x = a[0];
-             y = a[1];
+             float x = a[0];
+             float y = a[1];
 
              a[0] = a[1];
              ```
@@ -173,12 +175,12 @@ namespace Geometry {
             float operator[](int index);
 
             /**
-             * @brief Overloading of the `operator[]` operator (non-const variant). It accept a `int` value and returns a `float` value: the value `0` represents the x-coordinte while `1` represents the y-coordinate. This method allows index and only read operations such as:
+             * @brief Overloading of the `operator[]` operator (const variant). It accept a `int` value and returns a `float` value: the value `0` represents the x-coordinte while `1` represents the y-coordinate. This method allows index and only read operations such as:
              ```
              // Example:
              Point2D a(1,2);
-             x = a[0];
-             y = a[1];
+             float x = a[0];
+             float y = a[1];
              ```
              * @param other Point2D object.
              * @return `float` value which represent the selected coordinate.
