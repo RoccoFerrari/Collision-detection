@@ -25,12 +25,23 @@ namespace Geometry {
              * @brief Default constructor that sets the coordinates to X = 0 and Y = 0. It accepts 0, 1 or 2 arguments and sets their coordinates to the value passed to the constructor.
              * @param x Coordinate X.
              * @param y Coordinate Y.
+             ```
+             // Example:
+             Point2D a; // a = (0, 0)
+             Point2D b (1); // b = (1, 0)
+             Point2D c (1,2); // c = (1, 2)
+             ```
              */
             Point2D(float x = 0.0, float y = 0.0);
 
             /**
              * @brief Copy constructor that sets the coordinates of the current object with the coordinates of the `Point2D` object passed as argument.
              * @param other `Point2D` object.
+             ```
+             // Example:
+            Point2D a(1,2);
+            Point2D b(a);
+             ```
              */
             Point2D(const Point2D& other);
 
@@ -48,6 +59,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator=` operator. It accept a `Point2D` object as argument and returns a reference to a `Point2D` object. This method allows assignement operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b = a;
              ```
@@ -59,6 +71,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator==` operator. It accept a `Point2D` object as argument and returns a boolean value: if the two object are equals it returns `true`, otherwise `false`. This method allows comparison operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b(3,4);
              std::cout >> (a == b) ? "true" : "false";
@@ -71,6 +84,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator+` operator. It accept a `Point2D` object as argument and returns a `Point2D` object. This method allows sum operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b(3,4);
              Point2D c = a + b;
@@ -82,6 +96,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator-` operator. It accept a `Point2D` object as argument and returns a `Point2D` object. This method allows subtraction operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b(3,4);
              Point2D c = a - b;
@@ -94,6 +109,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator*` operator. It accept a `float` scalar as argument and returns a `Point2D` object. This method allows product operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              float b = 3.0f;
              Point2D c = a * b;
@@ -106,6 +122,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator/` operator. It accept a `float` scalar as argument and returns a `Point2D` object. This method allows division operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              float b = 3.0f;
              Point2D c = a/b;
@@ -118,6 +135,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator*` operator. It accept a `Point2D` object as argument and returns a `float` value. This method allows scalar product between two points operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b(3,4);
              float c = a * b;
@@ -130,6 +148,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator+=` operator. It accept a `Point2D` object as argument and returns none. This method allows self-sum operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              Point2D b(3,4);
              a += b;
@@ -141,6 +160,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator[]` operator (non-const variant). It accept a `int` value and returns a `float` value: the value `0` represents the x-coordinte while `1` represents the y-coordinate. This method allows index, read and (over)write operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              x = a[0];
              y = a[1];
@@ -155,6 +175,7 @@ namespace Geometry {
             /**
              * @brief Overloading of the `operator[]` operator (non-const variant). It accept a `int` value and returns a `float` value: the value `0` represents the x-coordinte while `1` represents the y-coordinate. This method allows index and only read operations such as:
              ```
+             // Example:
              Point2D a(1,2);
              x = a[0];
              y = a[1];
