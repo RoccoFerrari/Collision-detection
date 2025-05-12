@@ -11,10 +11,10 @@ This library provides a robust and optimized solution for detecting collisions b
 
 ## Features
 
-* **2D and 3D Support:** Handles collisions between a wide range of shapes, including circles, rectangles, polygons, spheres, boxes, and meshes.
-* **Efficient Algorithms:** Implements optimized algorithms for collision detection, ensuring high performance even with complex scenes.
 * **Inspired by "Real-Time Collision Detection":** Draws inspiration from Christer Ericson's renowned book, incorporating proven techniques and best practices.
-* **Easy to Use:** Provides a simple and intuitive API, allowing for quick integration into your projects.
+* **2D and 3D Support:** Handles collisions between a wide range of shapes, including circles, rectangles, polygons, spheres, boxes, and meshes.
+* **General:** Functions are built to be used with every container which supports iterators.
+* **Efficient Algorithms:** Implements optimized algorithms for collision detection, ensuring high performance even with complex scenes.
 * **Customizable:** Offers flexibility to customize collision detection behavior and add support for custom shapes.
 
 ## Getting Started
@@ -48,6 +48,7 @@ This library provides a robust and optimized solution for detecting collisions b
 
 ```c++
 #include <vector>
+#include <list>
 #include "../include/QuickHull.hh"
 
 int main() {
@@ -56,9 +57,19 @@ int main() {
         (1,2),(2,3),(4,1),(4,3),(5,2),(3,2),
         (7,0),(1,3),(3,4)
     };
+    // Create a Point2D list
+    std::list<Geometry::Point2D> lis = {
+        (1,2),(2,3),(4,1),(4,3),(5,2),(3,2),
+        (7,0),(1,3),(3,4)
+    };
     // Return a vector of Point2D that rapresent a hull of the given vector of Point2D
-    std::vector<Geometry::Point2D> res;
+    std::vector<Geometry::Point2D> res1;
+    std::vector<Geometry::Point2D> res1;
+
     res = Geometry::QuickHull::quick_hull(vec);
+    re2 = Geometry::QuickHull::quick_hull(lis);
+
+    // res1 = res2
 
     return 0;
 }
