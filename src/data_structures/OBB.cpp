@@ -12,10 +12,8 @@ namespace Geometry {
         this->halfwidth = halfwidth;
     }
 
-    /*
-        It is possible to show that at most 15 of these separating axes must be tested to correctly determine the OBB overlap status. These axes correspond to the three coordinate axes of A, the three coordinate axes of B, and the nine axes perpendicular to an axis from each. If the boxes fail to overlap on any of the 15 axes, they are not intersecting. If no axis provides this early out, it follows that the boxes must be overlapping.
-    */
     bool OBB::test_OBB_OBB_intersection(const OBB& other) const {
+        
         // Get the machine epsilon for the float type
         float epsilon = std::numeric_limits<float>::epsilon();
         float ra, rb;

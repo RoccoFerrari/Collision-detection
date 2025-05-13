@@ -8,14 +8,39 @@
 
 namespace Geometry {
     // Region R = {(x, y, y) | (x - c.x)^2 + (y - c.y)^2 + (z - c.z)^2 <= r^2}
+
+    /**
+     * @class Sphere.
+     * @brief Sphere-shaped bounding box. Its region is:
+     * $$
+     * R = \{ \; (x,y,z) \; | \; (x - c.x)^2+(y-c.y)^2+(z-c.z)^2 \le r^2 \}
+     * $$
+     */
+
     class Sphere {
     private:
+    
+        /**
+         * @brief center point of `Sphere` object.
+         * @param center 
+         */
         Point3D center;
+
+        /**
+         * @brief Radius of the sphere.
+         * @param radius 
+         */
         float radius;
 
     public:
 
-        // Support methods for computing intersections
+        /**
+         * @brief Support method for computing intersections.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @return none. 
+         */
         template <typename Iterator>
         inline void sphere_from_distant_points(Iterator begin, Iterator end) {
 
@@ -37,9 +62,22 @@ namespace Geometry {
             }
         }
 
+        /**
+         * @brief Support method that update the perimeter of the sphere with an outer point.
+         * @param point Point which update the sphere's perimeter
+         * @return none. 
+         */
         void update_sphere_with_outer_point(Point3D& point);
 
         // Eigen sphere uses matrix rotation to approximate a more accurated bounding sphere
+
+        /**
+         * @brief Method that creates an Eigen sphere.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @return none. 
+         */
         template <typename Iterator>
         inline void eigen_sphere(Iterator begin, Iterator end) {
             Matrix m, v;
@@ -69,8 +107,16 @@ namespace Geometry {
             this->radius = dist * 0.5f;
             this->center = (minpt + maxpt) * 0.5f;
         }
-    
-        Sphere(Point3D c = {}, float r = 1);
+        
+        /**
+         * @name Constructors.
+         * @{
+         */
+
+            
+            Sphere(Point3D c = {}, float r = 1);
+
+        /// @}
 
         Point3D getCenter() const ;
         float getRadius() const ;

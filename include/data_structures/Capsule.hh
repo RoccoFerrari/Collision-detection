@@ -4,7 +4,6 @@
 #include "Sphere.hh"
 
 namespace Geometry {
-    // Region R = { x | (x - [a + (b - a)*t])^2 <= r }, 0 <= t <= 1
 
     /**
      * @class Capsule.
@@ -50,10 +49,10 @@ namespace Geometry {
              // Example:
              Point3D S(9,8,7);
              Point3D E(5,6,7);
-             AABB a;
-             AABB b (S); 
-             AABB c (S,E);
-             AABB d (S,E,5);
+             Capsule a;
+             Capsule b (S); 
+             Capsule c (S,E);
+             Capsule d (S,E,5);
              ```
              */
             Capsule(Point3D s = {}, Point3D e = {}, float r = 1);
