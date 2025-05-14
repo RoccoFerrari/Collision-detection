@@ -7,12 +7,22 @@
 #include "Point2D.hh"
 #include "QuickHull.hh"
 
-// Class containig several methods useful for a moltitude of situations
-
 namespace Geometry {
+
+     /**
+     * @class GeometriyUtils.
+     * @brief Class containig several methods useful for a moltitude of situations.
+     */
     class GeometryUtils {
     private:
-        // Support function: clamp n to lie within the reange [min, max]
+
+        /**
+         * @brief Support function: clamp n to lie within the range [min, max]
+         * @param n `float`
+         * @param min min value
+         * @param max max value
+         * @return `float` value that represent the min or max value.
+         */
         static float clamp(const float n, const float min, const float max);
     public:
         // Method that returns index max into pt vector of the most distant point along the direction dir

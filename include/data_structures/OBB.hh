@@ -8,8 +8,7 @@
     on the object they are refered to, while AABB are oriented always by the axes.
 */
 namespace Geometry {
-    // Region R = { x | x = c + r*u[0] + s*u[1] + t*u[2] }, |r| <= e[0], |s| <= e[1], |t| <= e[2]
-    
+
     /**
      * @class OBB.
      * @brief Oriented Bounding Box (OBB), is a fitting-figure box that allows you to optimize collisions by eliminating impossible ones and testing only those whose OBB of the figures are intersected. The differences between AABB and OBB are that OBBs are oriented dipending on the object they are refered to, while AABB are oriented always by the axes. Its region is:
