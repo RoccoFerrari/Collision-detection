@@ -63,7 +63,7 @@ namespace Geometry {
         }
 
         /**
-         * @brief Support method that update the perimeter of the sphere with an outer point.
+         * @brief Support method that update the perimeter of the sphere with an outer point: given sphere `this` and point `p`, update `this` to just encompass `p`.
          * @param point Point which update the sphere's perimeter
          * @return none. 
          */
@@ -113,17 +113,50 @@ namespace Geometry {
          * @{
          */
 
-            
+            /**
+                 * @brief Default constructor that sets the `Sphere`'s center's coordinates to X = 0, Y = 0 and Z = 0 and radius of size 1. It accepts 0, 1 or 2 arguments and sets the center to the `Point3D`'s coordinate and the radius' length to the value passed to the constructor.
+                 * @param c `Point3D` that represent the center.
+                 * @param r Radius from the center.
+                 ```
+                // Example:
+                Point3D P(9,8,7);
+                Sphere a;
+                Sphere b (P); 
+                Sphere c (P,10);
+                ```
+                */
             Sphere(Point3D c = {}, float r = 1);
 
         /// @}
 
-        Point3D getCenter() const ;
-        float getRadius() const ;
+        /**
+         * @name Getters and Setters
+         * @{
+         */
+
+            /**
+             * @brief Method that returns a `float` value: center `Point3D` object.
+             * @return `float` value.
+             */
+            Point3D getCenter() const ;
+
+            /**
+             * @brief Method that returns a `float` value: the radius of the object.
+             * @return `float` value.
+             */
+            float getRadius() const ;
+
+        /// @}
 
         bool test_sphere_sphere_intersection(const Sphere& other) const ;
 
-        // Ritter sphere is an approximate bounding sphere. It is not optimal ma quite inexpensive.
+        /**
+         * @brief Method that creates a Ritter sphere: it is an approximate bounding sphere but quite inexpensive.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @return none. 
+         */
         template <typename Iterator>
         inline void ritter_sphere(Iterator begin, Iterator end) {
             // Get sphere encompassing two approximately most distant points
@@ -134,8 +167,13 @@ namespace Geometry {
                 this->update_sphere_with_outer_point(*begin);
         }
 
-        // Ritter sphere is an approximate bounding sphere. It uses matrix transforms for a better approximation.
-        // Function for init initialized Sphere
+        /**
+         * @brief Method that creates a Ritter Eigen sphere: is an approximate bounding sphere. It uses matrix transforms for a better approximation.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @return none. 
+         */
         template <typename Iterator>
         inline void ritter_eigen_sphere(Iterator begin, Iterator end) {
             // Start with sphere from maximum spread

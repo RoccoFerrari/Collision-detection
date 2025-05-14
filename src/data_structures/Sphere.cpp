@@ -21,7 +21,6 @@ namespace Geometry {
         return dist2 <= radiusSum * radiusSum;
     }
 
-    // Given sphere this and point p, update s to just encompass p
     void Sphere::update_sphere_with_outer_point(Point3D& point) {
         // Compute squared distance between point and sphere center
         Point3D d = point - this->center;
