@@ -7,37 +7,116 @@
 #include "Point3D.hh"
 
 namespace Geometry {
+
+    /**
+     * @class Matrix.
+     * @brief Class modeling a Matrix.
+     */
     class Matrix {
     private:
-        std::vector<std::vector<float>> data; // Internal matrix
+
+        /**
+         * @brief Internal matrix.
+         * @param data 
+         */
+        std::vector<std::vector<float>> data; 
+
+        /**
+         * @brief Number of rows.
+         * @param rows 
+         */
         int rows;
+
+        /**
+         * @brief Number of colons.
+         * @param cols 
+         */
         int cols;
 
-        // Support functions
-        // 2-by-2 symmetric Schur decomposition. 
-        // Given an n-by-n symmetric matrix and indeces p, q
-        // cuch that 1 <= p < q <= n, computes a sine-cosine
-        // pair (s, c) that will serve to form a Jacobi rotation matrix.
+        /**
+         * @brief Support functions that compute 2-by-2 symmetric Schur decomposition. Given an n-by-n symmetric matrix and indeces `p`, `q` such that $1 \le p < q \le n$, computes a sine-cosine pair `(s, c)` that will serve to form a Jacobi rotation matrix.
+         * @param p first index
+         * @param q second index
+         * @param c cosine
+         * @param s sine
+         */
         void sym_schur_2x2(int p, int q, float& c, float& s);
     public:
-        // Constructor: initialize a matrix with only 0s and a defined size (3x3)
-        Matrix(int r = 3, int c = 3);
+
+        /**
+         * @name Constructors.
+         * @{
+         */
+
+            /**
+             * @brief Constructor that initializes a matrix with only 0s and a defined size (3x3).
+             * @param r number of rows
+             * @param c number of cols
+             */
+            Matrix(int r = 3, int c = 3);
+
+        /// @}
 
         // Setter method
-        void set(int r, int c, double value);
-        // Getter method
-        double get(int r, int c) const ;
 
-        // operator[] 
-        std::vector<float>& operator[](int i);
-        // operator[] (const version)
-        const std::vector<float>& operator[](int i) const ;
+        /**
+         * @name Setter and Getter method(s).
+         * @{
+         */
         
-        // Method for the product between matrices
-        Matrix operator*(const Matrix& other) const ;
+            /**
+             * @brief Method that sets a `float` value in `r` and `c` position.
+             * @return none.
+             */
+            void set(int r, int c, float value);
 
-        // Operato= 
-        Matrix& operator=(const Matrix& other);
+            /**
+             * @brief Method that returns a `float` value in `r` and `c` position.
+             * @return `float` value.
+             */
+            float get(int r, int c) const ;
+        
+        /// @}
+
+        /**
+         * @name Operator(s) ovreloading
+         * @{
+         */
+
+            /**
+             * @brief Overloading of the `operator[]` operator (non-const variant). It accept a `int` value and returns a `vector<float>` object that represents a col of the matrix. This method allows index, read and (over)write operations such as:
+             ```
+             // Example:
+             Matrix a(10,10);
+             float x = a[0][0];
+             vector<float> y = a[1];
+             a[10][2] = a[2][8];
+             ```
+             * @param i int value.
+             * @return `vector<float>` object which represent the selected coordinate.
+             */
+            std::vector<float>& operator[](int i);
+
+            /**
+             * @brief Overloading of the `operator[]` operator (const variant). It accept a `int` value and returns a `vector<float>` object that represents a col of the matrix. This method allows index and read operations such as:
+             ```
+             // Example:
+             Matrix a(10,10);
+             float x = a[0][0];
+             vector<float> y = a[1];
+             ```
+             * @param i int value.
+             * @return `vector<float>` object which represent the selected coordinate.
+             */
+            const std::vector<float>& operator[](int i) const ;
+            
+            // Method for the product between matrices
+            Matrix operator*(const Matrix& other) const ;
+
+            // Operato= 
+            Matrix& operator=(const Matrix& other);
+
+        /// @}
 
         // Create a new transposed matrix
         Matrix transpose() const ;

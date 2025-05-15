@@ -9,7 +9,7 @@ namespace Geometry {
     }
 
     // Setter method
-    void Matrix::set(int r, int c, double value) {
+    void Matrix::set(int r, int c, float value) {
         if (r >= 0 && r < rows && c >= 0 && c < cols) {
             data[r][c] = value;
         } else 
@@ -17,7 +17,7 @@ namespace Geometry {
     }
 
     // Getter method
-    double Matrix::get(int r, int c) const {
+    float Matrix::get(int r, int c) const {
         if (r >= 0 && r < rows && c >= 0 && c < cols) {
             return data[r][c];
         } else {

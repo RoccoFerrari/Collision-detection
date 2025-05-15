@@ -9,7 +9,7 @@
 
 namespace Geometry {
 
-     /**
+    /**
      * @class GeometriyUtils.
      * @brief Class containig several methods useful for a moltitude of situations.
      */

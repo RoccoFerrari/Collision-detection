@@ -2,7 +2,6 @@
 
 namespace Geometry {
     
-    // Returns the squared distance between point c and segment ab
     float GeometryUtils::sq_dist_point_segment(Point3D a, Point3D b, Point3D c) {
         Point3D ab = b - a, ac = c - a, bc = b - c;
         float e = ac * ab;
@@ -23,9 +22,7 @@ namespace Geometry {
             return max;
         return n;
     }
-    // Computer closest points C1 and C2 of S1(s) = P1 + s*(Q1-P1)
-    // and S2(t) = P2 + t*(Q2-P2), returning s and t. Function
-    // result is squared distance between S1(s) and S2(t)
+    
     float GeometryUtils::closest_point_segment_segment(Point3D p1, Point3D q1, Point3D p2, Point3D q2, float& s, float& t, Point3D& c1,Point3D& c2) {
         float epsilon = std::numeric_limits<float>::epsilon();
         Point3D d1 = q1 - p1; // Direction vector of segment S1
