@@ -25,8 +25,15 @@ namespace Geometry {
          */
         static float clamp(const float n, const float min, const float max);
     public:
-        // Method that returns index max into pt vector of the most distant point along the direction dir
-        // Usable for AABB's creation
+
+        /**
+         * @brief Method that returns a `pair<Iterator,Iterator>` that contains the iterators `max` and `min` of the contanier passed as argument (with iterators) of the most distant couple along the direction `dir`.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.`
+         * @param dir direction
+         * @param begin starting iterator.
+         * @param end ending iterator. 
+         * @return `pair<Iterator, Iterator>` iterators of the min and max value.
+         */
         template <typename Iterator>
         inline static std::pair<Iterator, Iterator> extreme_points_along_direction(const Point3D& dir, Iterator begin, Iterator end) {
             using ValueType = typename std::iterator_traits<Iterator>::value_type;
@@ -61,8 +68,13 @@ namespace Geometry {
             return std::make_pair(min, max);
         }
 
-        // Compute indices to the most separated points of the six points
-        // defining the AABB encompassing the point set. Return these as min and max.
+        /**
+         * @brief Method that returns a `pair<Iterator,Iterator>` that contains the iterators `max` and `min` of the contanier passed as argument (with iterators) of the most separated points of a `AABB` object.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator. 
+         * @return `pair<Iterator, Iterator>` iterators of the min and max value.
+         */
         template <typename Iterator>
         inline static std::pair<Iterator, Iterator> most_separated_points_on_AABB(Iterator begin, Iterator end) {
             using ValueType = typename std::iterator_traits<Iterator>::value_type;
@@ -121,9 +133,17 @@ namespace Geometry {
             return std::make_pair(min, max);
         }
 
-        // This methods find the minimum area rectangle in the XY plain containing the points
+        /**
+         * @brief Method that returns a `float` value that represent the minimum area rectangle in the X-Y plain.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @param c `Point2D` that represent the center of the minimum rectangle.
+         * @param out `pair<Point2D, Point2D>` pair object that represent the axes of rectangle's perimeter. 
+         * @return `float` value that represent the area of the rectangle.
+         */
         template <typename Iterator>
-        inline static float min_area_rectangle(Iterator begin, Iterator end, Point2D& c, std::pair<Point2D, Point2D> out) {
+        inline static float min_area_rectangle(Iterator begin, Iterator end, Point2D& c, std::pair<Point2D, Point2D>& out) {
             using ValueType = typename std::iterator_traits<Iterator>::value_type;
 
             auto it_begin = begin;
@@ -180,12 +200,30 @@ namespace Geometry {
             return minArea;
         }
 
-        // Returns the squared distance between point c and segment ab
+        /**
+         * @brief Method that returns the squared distance between point `c` and segment `ab`.
+         * @param a point of the segment.
+         * @param b point of the segment.
+         * @param c another point for computing distance. 
+         * @return `float` value that represent the dinstance between segment and point.
+         */
         static float sq_dist_point_segment(Point3D a, Point3D b, Point3D c);
 
         // Computer closest points C1 and C2 of S1(s) = P1 + s*(Q1-P1)
         // and S2(t) = P2 + t*(Q2-P2), returning s and t. Function
         // result is squared distance between S1(s) and S2(t)
+
+        /**
+         * @brief Method that computes closest points `c1` and `c2` of $S_1(s) = P_1 + s \cdot (Q_1-P_1)$ and $S_2(t) = P_2 + t \cdot (Q_2-P_2)$, returning `s` and `t`. Function's result is squared distance between $S_1(s)$ and $S_2(t)$.
+         * @param p1 first point of the first segment.
+         * @param q1 ending point of the first segment.
+         * @param p2 first point of the second segment.
+         * @param q2 ending point of the second segment.  
+         * @param s `float` value that represent closest value to the first segment.
+         * @param t `float` value that represent closest value to the second segment.
+         * @param c1 closest point to the first segment
+         * @param c2 closest point to the second segment
+         */
         static float closest_point_segment_segment(Point3D p1, Point3D q1, Point3D p2, Point3D q2, float& s, float& t, Point3D& c1, Point3D& c2);
     };
 }
