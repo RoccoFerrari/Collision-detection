@@ -8,3 +8,4 @@ config.ini     # Local configuration files
 *.json         # .json files
 CMakeLists.txt
 src/main.cpp
+doc/
