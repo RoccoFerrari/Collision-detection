@@ -110,7 +110,17 @@ namespace Geometry {
              */
             const std::vector<float>& operator[](int i) const ;
             
-            // Method for the product between matrices
+            /**
+             * @brief Overloading of the `operator*` operator. It accept a `Matrix` objject and returns a `Matrix` object that represents new computed matrix. This method allows product operations such as:
+             ```
+             // Example:
+             Matrix a(4,4);
+             Matrix b(4,4);
+             Matrix c = a * b;
+             ```
+             * @param other .
+             * @return `vector<float>` object which represent the selected coordinate.
+             */
             Matrix operator*(const Matrix& other) const ;
 
             // Operato= 
