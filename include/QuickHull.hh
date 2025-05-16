@@ -7,9 +7,23 @@
 #include <cmath>
 
 namespace Geometry {
+
+    /**
+     * @class QuickHull.
+     * @brief Class that allows to generate a hull from a set of points.
+     */
     class QuickHull {
     private:
 
+        /**
+         * @brief Support method that finds a the farthest point from a edge. It returns an `Iterator` pointing to this `Point2D`.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.`
+         * @param a Point2D
+         * @param b Point2D
+         * @param begin starting iterator.
+         * @param end ending iterator. 
+         * @return `Iterator` iterator refered to the farthest point from the edge A-B.
+         */
         template <typename Iterator>
         static Iterator point2D_farthest_from_edge(Point2D a, Point2D b, Iterator begin, Iterator end) {
             Point2D e = b - a;
@@ -32,8 +46,24 @@ namespace Geometry {
             return bestIndex;
         }
 
+        /**
+         * @brief Support function that compute a cross product between 3 points
+         * @param a `const Point2D&`
+         * @param b `const Point2D&`
+         * @param c `const Point2D&`
+         * @return `float` value that represent the cross product.
+         */
         static float cross_product(const Point2D& a, const Point2D& b, const Point2D& c);
 
+        /**
+         * @brief Support method that update recursively the `Point2D` hull.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.`
+         * @param a Point2D
+         * @param b Point2D
+         * @param begin starting iterator.
+         * @param end ending iterator. 
+         * @param hull `vector<Point2D>&` set of the current hull of points.
+         */
         template <typename Iterator>
         static void quick_hull_recursive(Point2D a, Point2D b, Iterator begin, Iterator end, std::vector<Point2D>& hull) {
             if (begin == end) 
@@ -59,6 +89,14 @@ namespace Geometry {
         }
 
     public:
+
+        /**
+         * @brief Main method that update recursively the `Point2D` hull. It returns a `vector<Point2D>` that represents the computed `Point2D` hull.
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.`
+         * @param begin starting iterator.
+         * @param end ending iterator.
+         * @return `vector<Point2D>` `Point2D` hull set.
+         */
         template <typename Iterator>
         static std::vector<Point2D> quick_hull(Iterator begin, Iterator end) {
             using PointType = typename std::iterator_traits<Iterator>::value_type;
