@@ -1,14 +1,13 @@
 #include "../include/Matrix.hh"
 
 namespace Geometry {
-    // Constructor
+
     Matrix::Matrix(int r, int c) : rows(r), cols(c) {
         data.resize(r);
         for (int i = 0; i < r; ++i) 
             data[i].resize(c, 0.0f); 
     }
 
-    // Setter method
     void Matrix::set(int r, int c, float value) {
         if (r >= 0 && r < rows && c >= 0 && c < cols) {
             data[r][c] = value;
@@ -16,7 +15,6 @@ namespace Geometry {
             throw std::out_of_range("Indexes out of range");
     }
 
-    // Getter method
     float Matrix::get(int r, int c) const {
         if (r >= 0 && r < rows && c >= 0 && c < cols) {
             return data[r][c];
@@ -30,12 +28,10 @@ namespace Geometry {
         return data[i];
     }
 
-    // operator[] (const version)
     const std::vector<float>& Matrix::operator[](int i) const {
         return data[i];
     }
 
-    // Method for the product between matrices
     Matrix Matrix::operator*(const Matrix& other) const {
         if (cols != other.rows) {
             throw std::invalid_argument("Matrix sizes not compatible");
@@ -69,7 +65,6 @@ namespace Geometry {
         return *this;
     }
 
-    // Create a new transposed matrix
     Matrix Matrix::transpose() const {
         Matrix transposed(cols, rows); 
         for (int i = 0; i < rows; ++i) {
@@ -79,12 +74,6 @@ namespace Geometry {
         return transposed;
     }
 
-
-    // Support function
-    // 2-by-2 symmetric Schur decomposition. 
-    // Given an n-by-n symmetric matrix and indeces p, q
-    // cuch that 1 <= p < q <= n, computes a sine-cosine
-    // pair (s, c) that will serve to form a Jacobi rotation matrix.
     void Matrix::sym_schur_2x2(int p, int q, float& c, float& s) {
         if(abs(this->get(p, q)) > 0.0001f) {
             float r = (this->get(q, q) - this->get(p, p)) / (2.0f * this->get(p, q));
@@ -101,12 +90,6 @@ namespace Geometry {
         }
     }
 
-    // Computes the eigenvectors and eigenvalues of the symmetric matricx A using
-    // the classic Jacobi method od iteratively updating A as A = J^T * A * J,
-    // where J = J(p, q, theta) is the Jacobi rotation matrix
-    //
-    // On exit, V will contain the eigenvectors, and the diagonal elements
-    // of A are corresponding eigenvalues
     void Matrix::jacobi(Matrix& A, Matrix& V) {
         int i, j, n, p, q;
         float prevoff, c, s;

@@ -111,27 +111,44 @@ namespace Geometry {
             const std::vector<float>& operator[](int i) const ;
             
             /**
-             * @brief Overloading of the `operator*` operator. It accept a `Matrix` objject and returns a `Matrix` object that represents new computed matrix. This method allows product operations such as:
+             * @brief Overloading of the `operator*` operator. It accept a `Matrix` object and returns a `Matrix` object that represents new computed matrix. This method allows product operations such as:
              ```
              // Example:
              Matrix a(4,4);
              Matrix b(4,4);
              Matrix c = a * b;
              ```
-             * @param other .
-             * @return `vector<float>` object which represent the selected coordinate.
+             * @param other `const Matrix&`.
+             * @return `Matrix` object.
              */
             Matrix operator*(const Matrix& other) const ;
 
-            // Operato= 
+            /**
+             * @brief Overloading of the `operator=` operator. It accept a `const Matrix&` object and returns a `Matrix&` object that represents new assigned matrix. This method allows assignement operations such as:
+             ```
+             // Example:
+             Matrix a(4,4);
+             Matrix c = a;
+             ```
+             * @param other `const Matrix&`.
+             * @return `Matrix&` object.
+             */
             Matrix& operator=(const Matrix& other);
 
         /// @}
 
-        // Create a new transposed matrix
+        /**
+         * @brief Method that computes a new transposed matrix:
+         * @return `Matrix` object.
+         */
         Matrix transpose() const ;
 
-        // Creation of a covariance matrix
+        /**
+         * @brief Method that create a covriance matrix:
+         * @tparam `Iterator` Type that represent the Iterators of a container which supports them.
+         * @param begin starting iterator.
+         * @param end ending iterator. 
+         */
         template <typename Iterator>
         inline void covariance_matrix(Iterator begin, Iterator end) {
             using ValueType = typename std::iterator_traits<Iterator>::value_type;
@@ -180,6 +197,12 @@ namespace Geometry {
         //
         // On exit, V will contain the eigenvectors, and the diagonal elements
         // of A are corresponding eigenvalues
+
+        /**
+         * @brief Computes the eigenvectors and eigenvalues of the symmetric matricx `A` using the classic Jacobi method od iteratively updating `A` as $A = J^T \cdot A \cdot J$, where $J = J(p, q, theta)$ is the Jacobi rotation matrix. On exit, `V` will contain the eigenvectors, and the diagonal elements of `A` are corresponding eigenvalues.
+         * @param A `Matrix&` symmetric matrix.
+         * @param V `Matrix&` output matrix. 
+         */
         static void jacobi(Matrix& A, Matrix& V);
     }; 
 }
